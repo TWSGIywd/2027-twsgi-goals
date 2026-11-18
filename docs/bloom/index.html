@@ -19,8 +19,6 @@ canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
 .count{font-size:2.8rem;margin-top:8px;font-variant-numeric:tabular-nums}
 .count small{font-size:1.15rem;opacity:.85}
 .where{font-size:.95rem;letter-spacing:.08em;margin-top:6px;line-height:1.65}
-.go{display:inline-block;margin-top:14px;padding:6px 16px;border-radius:999px;border:1px solid rgba(255,255,255,.7);background:rgba(255,255,255,.18);
- color:#fff;text-decoration:none;font-size:.85rem;letter-spacing:.08em;backdrop-filter:blur(3px);text-shadow:0 1px 6px var(--shade)}
 .foot{position:absolute;left:0;right:0;bottom:0;padding:56px 16px calc(14px + env(safe-area-inset-bottom,0px));
  background:linear-gradient(to bottom,rgba(60,45,20,0),rgba(60,45,20,.5) 45%,rgba(60,45,20,.55));text-align:center;font-family:var(--round);color:#fff;text-shadow:0 1px 8px rgba(50,35,10,.55)}
 .quote p{margin:0;font-size:.95rem;line-height:1.7;letter-spacing:.06em}
@@ -60,7 +58,6 @@ canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
     <div class="title">櫻梅桃李　花開滿山</div>
     <div class="count">287<small> / 948</small></div>
     <div class="where">今天是 2026/11/18<br>我們正走在杉林山徑<br>還有 661 朵花等待灌溉培育</div>
-    <a class="go" href="../ywd.html">各區花開進度 ›</a>
   </div>
   <div class="foot">
     <div class="dock" id="dock" hidden>
@@ -143,7 +140,7 @@ function tick(now){const dt=Math.min(.05,(now-last)/1000); last=now; T+=dt; ctx.
 (document.fonts?document.fonts.ready:Promise.resolve()).then(()=>requestAnimationFrame(tick));
 
 // ───── 我今天對話了：按一下飄藍、黃小花；同一支手機一天最多 5 次；數字是全女子部累計（不分區） ─────
-const API="", MAX=5;
+const API="https://script.google.com/macros/s/AKfycbx2GHBMekrMbVsPcgxUW53x_eFXi9a2PjM_CC-4JTldKRAzbQT9UPErV65vYX5oP1FR/exec", MAX=5;
 const TALK=[["#d8e7ff","#7aa0de","#fff6dc"],["#fff1b3","#e2b02c","#fffaf0"],["#c6dbff","#5f88d0","#fff6dc"],["#ffe68f","#d99d14","#fffaf0"]]; // 藍・黃
 const sparks=[];
 function burst(){ if(reduce) return; const r=seed.getBoundingClientRect(), s=stage.getBoundingClientRect(), cx=r.left-s.left+r.width/2, cy=r.top-s.top+r.height*.35;
