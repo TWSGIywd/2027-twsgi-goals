@@ -61,7 +61,7 @@ canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
   </div>
   <div class="foot">
     <div class="dock" id="dock" hidden>
-      <div class="talkn">今天大家對話了 <b id="tday">–</b> 次<br>累計 <b id="ttot">–</b> 次</div>
+      <div class="talkn">今天 <b id="tday">–</b> 次對話<br>累計 <b id="ttot">–</b> 次</div>
       <div class="seedbox">
       <div class="toast" id="toast" role="status" aria-live="polite"></div>
       <button class="seed" id="seed" type="button">
@@ -163,12 +163,15 @@ function render(){ tday.textContent=st.today==null?"–":st.today.toLocaleString
 function toast(t){ toastEl.textContent=t; toastEl.classList.add("show"); clearTimeout(tt); tt=setTimeout(()=>toastEl.classList.remove("show"),2200) }
 function anim(el,c){ el.classList.remove(c); void el.offsetWidth; el.classList.add(c) }
 async function call(q){ const r=await fetch(API+"?"+new URLSearchParams(q)); const j=await r.json(); if(!j.ok) throw new Error(j.error||"error"); return j }
+// 按下後的回覆隨機出現、不連續重複（使用者 2026-11-18：辛苦了、笑臉之類）
+const CHEERS=["辛苦了！","辛苦了 :)","辛苦了 🙂","太好了！","太好了 :)"]; let lastCheer=-1;
+function cheer(){ let i; do{ i=Math.floor(Math.random()*CHEERS.length) }while(i===lastCheer&&CHEERS.length>1); lastCheer=i; return CHEERS[i] }
 function newDay(){ const d=tpeDay(); if(d!==st.day){ st.day=d; st.mine=0; if(st.today!=null) st.today=0; save() } }
 seed.addEventListener("click",()=>{ newDay();
-  if(st.mine>=MAX){ toast("今天已經按滿 5 次，明天再來"); anim(seed,"nudge"); return }
+  if(st.mine>=MAX){ toast("今天已經 5 次了，明天再按"); anim(seed,"nudge"); return }
   st.mine++; pending++; if(st.today!=null) st.today++; if(st.total!=null) st.total++;
   save(); render(); anim(seed,"pop"); burst();
-  toast(st.mine>=MAX?"今天的 5 次都按滿了，謝謝你":"謝謝你今天的對話");
+  toast(st.mine>=MAX?"今天 5 次，辛苦了！":cheer());
   clearTimeout(timer); timer=setTimeout(flush,700) });
 async function flush(){ if(busy||!pending) return; busy=true; const n=pending; pending=0; const rid=Date.now().toString(36)+Math.random().toString(36).slice(2,6);
   for(let a=0;a<4;a++){ try{ const j=await call({a:"add",d:devId,n,rid});
