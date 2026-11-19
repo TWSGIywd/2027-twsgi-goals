@@ -109,7 +109,7 @@ button:focus-visible,.track div:focus-visible{outline:2px solid var(--sakura);ou
     <p class="hint">拖動下面的拉桿，或點八段中的任一段。手機畫面就是網頁實際的樣子（天空上的三行字會跟著變）。起始位置是 11/19 的實際數字 637 位。</p>
     <div class="try">
       <div class="phone" aria-live="polite">
-        <img id="pimg" src="s1.jpg?v=1795106657" alt="第 1 段 杉林山徑的畫面">
+        <img id="pimg" src="s1.jpg?v=1795107752" alt="第 1 段 杉林山徑的畫面">
         <div class="skyt"><div class="t">櫻梅桃李　花開滿山</div><div class="n"><span id="pn">637</span><small> / 1,896</small></div>
           <div class="w" id="pw">我們正走在杉林山徑<br>還有 1,259 朵花等待灌溉培育</div></div>
       </div>
@@ -194,7 +194,7 @@ const span = T + 60;
 const grid = $("grid");
 S.forEach((s, i) => {
   const c = document.createElement("article"); c.className = "card"; c.tabIndex = 0;
-  c.innerHTML = `<img src="s${i+1}.jpg?v=1795106657" alt="第 ${i+1} 段 ${s.n}" loading="lazy"><div class="b"><div class="k">第 ${i+1} 段</div>
+  c.innerHTML = `<img src="s${i+1}.jpg?v=1795107752" alt="第 ${i+1} 段 ${s.n}" loading="lazy"><div class="b"><div class="k">第 ${i+1} 段</div>
     <h3>${s.n}${i === stageOf(NOW) ? '<span class="tag">現在</span>' : ''}</h3>
     <div class="r">${i < 7 ? `達成 <b>${fmt(s.at)}</b> 位起` : `達成 <b>${fmt(T)}</b> 位`}　<span style="color:var(--sub)">${Math.round(s.at / T * 100)}%</span></div>
     ${s.m ? `<div class="m">${s.m}</div>` : ""}<div class="s">${s.d}<br>${s.who}</div></div>`;
@@ -213,7 +213,7 @@ function set(a) {
   $("dd").textContent = (S[k].m ? S[k].m + "。" : "") + S[k].d; $("dw").textContent = S[k].who;
   if (k !== cur) {
     const img = $("pimg"); img.style.opacity = 0;
-    setTimeout(() => { img.src = `s${k+1}.jpg?v=1795106657`; img.alt = `第 ${k+1} 段 ${S[k].n}的畫面`; img.style.opacity = 1; }, cur < 0 ? 0 : 220);
+    setTimeout(() => { img.src = `s${k+1}.jpg?v=1795107752`; img.alt = `第 ${k+1} 段 ${S[k].n}的畫面`; img.style.opacity = 1; }, cur < 0 ? 0 : 220);
     [...track.children].forEach((d, i) => d.classList.toggle("on", i === k));
     [...grid.children].forEach((c, i) => c.classList.toggle("on", i === k));
     cur = k;
