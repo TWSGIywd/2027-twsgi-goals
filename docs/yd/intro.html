@@ -108,7 +108,7 @@ button:focus-visible,.track div:focus-visible{outline:2px solid var(--sakura);ou
     <p class="hint">拖動下面的拉桿，或點八段中的任一段。手機畫面就是網頁實際的樣子（天空上的三行字會跟著變）。起始位置是 11/19 的實際數字 637 位。</p>
     <div class="try">
       <div class="phone" aria-live="polite">
-        <img id="pimg" src="s1.jpg" alt="第 1 段 杉林山徑的畫面">
+        <img id="pimg" src="s3.jpg" alt="第 1 段 杉林山徑的畫面">
         <div class="skyt"><div class="t">櫻梅桃李　花開滿山</div><div class="n"><span id="pn">637</span><small> / 1,896</small></div>
           <div class="w" id="pw">我們正走在杉林山徑<br>還有 1,259 朵花等待灌溉培育</div></div>
       </div>
@@ -130,7 +130,7 @@ button:focus-visible,.track div:focus-visible{outline:2px solid var(--sakura);ou
 
   <section aria-labelledby="all-h">
     <h2 id="all-h">八段風景</h2>
-    <p class="hint">門檻依原本八段的比例換算到 1,896 位。目標數字變動時，門檻會照同樣比例自動調整。</p>
+    <p class="hint">八段平均分配：每完成七分之一（約 14%）換一段風景，第 8 段就是 100%。目標數字變動時，門檻會照同樣比例自動調整。</p>
     <div class="grid" id="grid"></div>
   </section>
 
@@ -161,7 +161,7 @@ button:focus-visible,.track div:focus-visible{outline:2px solid var(--sakura);ou
 </div>
 
 <script>
-const T = 1896, NOW = 637, AT = [0, 664, 854, 1044, 1234, 1424, 1614, 1896];
+const T = 1896, NOW = 637, AT = [0, 271, 542, 813, 1083, 1354, 1625, 1896];
 const S = [
   {n:"杉林山徑", at:AT[0], who:"3 人：三位朋友一起出發",           d:"秋天的杉林，三個人並肩走上山徑。"},
   {n:"楓紅溪谷", at:AT[1], who:"4 人：遠處有人跟上來",             d:"楓葉轉紅，踩著石頭過溪，帶著登山杖。"},
@@ -169,8 +169,8 @@ const S = [
   {n:"櫻花坡道", at:AT[3], who:"7 人：迎面又有一小隊一起走",       d:"春天的櫻花坡，花瓣隨風飄。"},
   {n:"桃李花谷", at:AT[4], who:"7 人：遠處的夥伴越來越多",         d:"桃花、李花開滿山谷，草地也綠了。"},
   {n:"雲海花原", at:AT[5], who:"8 人：左右兩邊都有同伴",           d:"走到雲海之上，腳邊是一整片花原。"},
-  {n:"晨曦稜線", at:AT[6], who:"約 15 人：稜線上排成一列的隊伍",   d:"清晨的稜線，山頂就在前方。"},
-  {n:"花開山頂", at:AT[7], who:"約 12 人：大家一起在山頂歡呼",     d:`兩年三倍達成，${T.toLocaleString("en-US")} 朵花全部綻放。`},
+  {n:"晨曦稜線", at:AT[6], who:"8 人：夥伴們一起走向山頂",   d:"清晨的稜線，山頂就在前方。"},
+  {n:"花開山頂", at:AT[7], who:"8 人：大家一起在山頂歡呼",     d:`兩年三倍達成，${T.toLocaleString("en-US")} 朵花全部綻放。`},
 ];
 const $ = id => document.getElementById(id);
 const fmt = n => n.toLocaleString("en-US");
