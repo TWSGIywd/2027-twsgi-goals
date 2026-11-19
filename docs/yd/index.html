@@ -124,7 +124,8 @@ const landed=[], falling=[];
 const foot=document.querySelector(".foot");
 function landingSpot(i){const u=(i*.618+.13)%1, v=(i*.382+.5)%1; return {x:W*(.1+u*.8), y:H*(.39+v*.15)}}
 let qi=0;
-function drop(){ if(qi>=queue.length) return; const q=queue[qi], t=landingSpot(qi); qi++;
+const HOLD=2.6, FADE=1.6;
+function drop(){ if(!queue.length) return; const q=queue[qi%queue.length], t=landingSpot(qi); qi++;
   falling.push({d:q.d,n:q.n,x:t.x+(Math.random()-.5)*60,y:H*.27,tx:t.x,ty:t.y,sw:Math.random()*6.3,rot:0,pal:palOf(q,qi),lc:lcOf(q),r:6}); }
 if(!reduce){ drop(); setInterval(drop,2400); }
 else queue.forEach((q,i)=>{const t=landingSpot(i);landed.push({d:q.d,n:q.n,x:t.x,y:t.y,pal:palOf(q,i),lc:lcOf(q),r:6,bloom:1,lab:0,rot:0})});
@@ -134,9 +135,10 @@ function tick(now){const dt=Math.min(.05,(now-last)/1000); last=now; T+=dt; ctx.
     if(drift.length<26 && Math.random()<.4) spawnDrift();
     drift=drift.filter(f=>f.y<H+20); for(const f of drift){f.y+=f.vy*dt;f.sw+=dt*1.4;f.rot+=dt;flower(f.x+Math.sin(f.sw)*14,f.y,f.r,f.rot,f.p,0)}
   }
-  landed.forEach((f,i)=>{ f.bloom=Math.min(1,f.bloom+dt*1.6); const sway=Math.sin(T*1.3+i)*.12;
-    flower(f.x,f.y,f.r*(.4+.6*f.bloom),f.rot+sway,f.pal, i===spot?Math.sin(Math.min(1,spotT/2.6)*Math.PI):0);
-    if(f.lab>0){ f.lab=Math.max(0,f.lab-dt*.45); label(f.x,f.y-16,f.d,f.n,Math.min(1,f.lab),f.lc); } });
+  for(let i=landed.length-1;i>=0;i--){ const f=landed[i]; f.bloom=Math.min(1,f.bloom+dt*1.6); if(!reduce) f.age=(f.age||0)+dt;
+    const a=Math.max(0,Math.min(1,(HOLD+FADE-(f.age||0))/FADE)); if(a<=0){ landed.splice(i,1); continue }
+    ctx.save(); ctx.globalAlpha=a; flower(f.x,f.y,f.r*(.4+.6*f.bloom),f.rot+Math.sin(T*1.3+i)*.12,f.pal,.5*a); ctx.restore();
+    label(f.x,f.y-16,f.d,f.n,a,f.lc); }
   for(let k=falling.length-1;k>=0;k--){ const f=falling[k]; f.sw+=dt*1.2; f.rot+=dt*.9;
     f.y+=dt*28; f.x+=(f.tx-f.x)*dt*.35; const x=f.x+Math.sin(f.sw)*12;
     flower(x,f.y,f.r,f.rot,f.pal,.6); label(x,f.y-16,f.d,f.n,1,f.lc);
@@ -145,7 +147,6 @@ function tick(now){const dt=Math.min(.05,(now-last)/1000); last=now; T+=dt; ctx.
     f.vx*=Math.exp(-2.4*dt); f.vy=Math.min(f.vy+f.g*dt,f.vmax); f.x+=f.vx*dt; f.y+=f.vy*dt;
     const a=Math.max(0,Math.min(1,f.max-f.life)); if(a<=0||f.y>H+20){sparks.splice(k,1);continue}
     ctx.save(); ctx.globalAlpha=a; flower(f.x+Math.sin(f.sw)*8,f.y,f.r,f.rot,f.pal,0,f.pal[2]); ctx.restore(); }
-  if(qi>=queue.length && !falling.length && landed.length){ spotT+=dt; if(spot<0||spotT>3.2){ spot=Math.floor(Math.random()*landed.length); spotT=0; landed[spot].lab=2.4; } }
   requestAnimationFrame(tick)}
 (document.fonts?document.fonts.ready:Promise.resolve()).then(()=>requestAnimationFrame(tick));
 
