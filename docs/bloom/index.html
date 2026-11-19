@@ -90,8 +90,9 @@ canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
   </div>
 </div>
 <script>
-// 本月各區新增（每天自動更新時算出）：一朵花＝一張個人資料卡
-const NEW = {"基隆北區": 1, "士林區": 1, "中和區": 3, "竹縣區": 3, "台中西區": 1, "高雄南區": 1};
+// 近 30 天各區新增（每天自動更新時算出）：一朵花＝一張個人資料卡
+// 女子部版是 {區: n}；青年部版是 {區: {w: 女子部, m: 男子部}}，粉紅花＝女子部、藍花＝男子部
+const NEW = {"基隆北區": 1, "士林區": 1, "北南一區": 1, "中和區": 3, "竹縣區": 3, "台中西區": 1, "南投區": 3, "高雄南區": 1};
 const stage=document.getElementById("stage"), cv=document.getElementById("cv"), ctx=cv.getContext("2d");
 let W,H; function rs(){const r=stage.getBoundingClientRect(),d=Math.min(2,devicePixelRatio||1);W=r.width;H=r.height;cv.width=W*d;cv.height=H*d;ctx.setTransform(d,0,0,d,0,0)} addEventListener("resize",rs); rs();
 const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -104,23 +105,27 @@ function flower(x,y,r,rot,pal,glow,core){
     ctx.strokeStyle=pal[1];ctx.lineWidth=.8;ctx.beginPath();ctx.moveTo(0,r*.25);ctx.lineTo(0,r*1.2);ctx.stroke()}
   ctx.fillStyle=core||"#f2c14e";ctx.beginPath();ctx.arc(0,0,r*.32,0,Math.PI*2);ctx.fill(); ctx.restore();
 }
-function label(x,y,name,n,a){
+function label(x,y,name,n,a,lc){
   if(a<=0) return; ctx.save(); ctx.globalAlpha=a; ctx.textAlign="center"; ctx.shadowColor="rgba(40,70,110,.55)"; ctx.shadowBlur=8;
   ctx.font=`15px ${FONT}`; const w=ctx.measureText(name).width; x=Math.max(w/2+8,Math.min(W-w/2-30,x)); // 區名不要被畫面邊緣切掉
-  ctx.fillStyle="#fff"; ctx.fillText(name,x,y); ctx.font=`12px ${FONT}`; ctx.fillStyle="#ffe3ea"; ctx.fillText(`+${n}`,x+w/2+12,y-1); ctx.restore();
+  ctx.fillStyle="#fff"; ctx.fillText(name,x,y); ctx.font=`12px ${FONT}`; ctx.fillStyle=lc||"#ffe3ea"; ctx.fillText(`+${n}`,x+w/2+12,y-1); ctx.restore();
 }
 let drift=[]; function spawnDrift(y){drift.push({x:Math.random()*W,y:y??-12,r:2.4+Math.random()*2.4,vy:20+Math.random()*20,sw:Math.random()*6.3,rot:Math.random()*6.3,p:PINKS[drift.length%4]})}
 for(let i=0;i<20;i++) spawnDrift(Math.random()*H);
-const queue=Object.keys(NEW); // 一區一朵，標 +N
+const BLUES=[["#dbe8ff","#7aa0de"],["#eaf2ff","#8fb0e6"]], BLUE_LC="#dbe8ff";
+const queue=[]; // 一區一朵（青年部版：女子部、男子部各一朵），標 +N
+for(const [d,v] of Object.entries(NEW)){ if(typeof v==="number") queue.push({d,n:v,b:0});
+  else { if(v.w) queue.push({d,n:v.w,b:0}); if(v.m) queue.push({d,n:v.m,b:1}); } }
+const palOf=(q,i)=>q.b?BLUES[i%2]:PINKS[i%4], lcOf=q=>q.b?BLUE_LC:"#ffe3ea";
 const landed=[], falling=[];
 const foot=document.querySelector(".foot");
 function landingSpot(i){const left=i%2===0, x=left? W*(.06+Math.random()*.26) : W*(.68+Math.random()*.26);
   const y1=Math.min(H*.80,foot.offsetTop+40), y0=Math.min(H*.64,y1-H*.1); return {x, y:y0+Math.random()*(y1-y0)}}
 let qi=0;
-function drop(){ if(qi>=queue.length) return; const d=queue[qi], t=landingSpot(qi); qi++;
-  falling.push({d,n:NEW[d],x:t.x+(Math.random()-.5)*60,y:H*.42,tx:t.x,ty:t.y,sw:Math.random()*6.3,rot:0,pal:PINKS[qi%4],r:6}); }
+function drop(){ if(qi>=queue.length) return; const q=queue[qi], t=landingSpot(qi); qi++;
+  falling.push({d:q.d,n:q.n,x:t.x+(Math.random()-.5)*60,y:H*.42,tx:t.x,ty:t.y,sw:Math.random()*6.3,rot:0,pal:palOf(q,qi),lc:lcOf(q),r:6}); }
 if(!reduce){ drop(); setInterval(drop,2400); }
-else queue.forEach((d,i)=>{const t=landingSpot(i);landed.push({d,n:NEW[d],x:t.x,y:t.y,pal:PINKS[i%4],r:6,bloom:1,lab:0,rot:0})});
+else queue.forEach((q,i)=>{const t=landingSpot(i);landed.push({d:q.d,n:q.n,x:t.x,y:t.y,pal:palOf(q,i),lc:lcOf(q),r:6,bloom:1,lab:0,rot:0})});
 let spot=-1, spotT=0, last=performance.now(), T=0;
 function tick(now){const dt=Math.min(.05,(now-last)/1000); last=now; T+=dt; ctx.clearRect(0,0,W,H);
   if(!reduce){
@@ -129,11 +134,11 @@ function tick(now){const dt=Math.min(.05,(now-last)/1000); last=now; T+=dt; ctx.
   }
   landed.forEach((f,i)=>{ f.bloom=Math.min(1,f.bloom+dt*1.6); const sway=Math.sin(T*1.3+i)*.12;
     flower(f.x,f.y,f.r*(.4+.6*f.bloom),f.rot+sway,f.pal, i===spot?Math.sin(Math.min(1,spotT/2.6)*Math.PI):0);
-    if(f.lab>0){ f.lab=Math.max(0,f.lab-dt*.45); label(f.x,f.y-16,f.d,f.n,Math.min(1,f.lab)); } });
+    if(f.lab>0){ f.lab=Math.max(0,f.lab-dt*.45); label(f.x,f.y-16,f.d,f.n,Math.min(1,f.lab),f.lc); } });
   for(let k=falling.length-1;k>=0;k--){ const f=falling[k]; f.sw+=dt*1.2; f.rot+=dt*.9;
     f.y+=dt*28; f.x+=(f.tx-f.x)*dt*.35; const x=f.x+Math.sin(f.sw)*12;
-    flower(x,f.y,f.r,f.rot,f.pal,.6); label(x,f.y-16,f.d,f.n,1);
-    if(f.y>=f.ty){ landed.push({d:f.d,n:f.n,x,y:f.ty,pal:f.pal,r:f.r,bloom:.2,lab:2.2,rot:f.rot}); falling.splice(k,1); } }
+    flower(x,f.y,f.r,f.rot,f.pal,.6); label(x,f.y-16,f.d,f.n,1,f.lc);
+    if(f.y>=f.ty){ landed.push({d:f.d,n:f.n,x,y:f.ty,pal:f.pal,lc:f.lc,r:f.r,bloom:.2,lab:2.2,rot:f.rot}); falling.splice(k,1); } }
   for(let k=sparks.length-1;k>=0;k--){ const f=sparks[k]; f.life+=dt; f.sw+=dt*1.6; f.rot+=dt*1.2;
     f.vx*=Math.exp(-2.4*dt); f.vy=Math.min(f.vy+f.g*dt,f.vmax); f.x+=f.vx*dt; f.y+=f.vy*dt;
     const a=Math.max(0,Math.min(1,f.max-f.life)); if(a<=0||f.y>H+20){sparks.splice(k,1);continue}
