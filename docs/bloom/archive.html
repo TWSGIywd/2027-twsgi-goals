@@ -13,6 +13,9 @@
 *{box-sizing:border-box}
 html,body{height:100%;margin:0}
 @supports (height:100dvh){html,body{height:100dvh}}
+/* iPhone 加入主畫面全螢幕（黑色透明狀態列）時，網頁高度會少算狀態列那一截（約 47pt），底下露出一條：
+   全螢幕模式改用螢幕實際高度（使用者 2026-11-20 截圖） */
+.app,.app body{height:var(--app-h)}
 body{background:#1d2c40;display:flex;justify-content:center;overflow:hidden}
 body::before{content:"";position:fixed;inset:-60px;background:url(s1.jpg) center/cover;filter:blur(30px) brightness(.72) saturate(1.1)}
 .stage{position:relative;flex:0 1 460px;min-width:0;height:100%;min-height:560px;overflow:hidden;background:#cfe6f2;box-shadow:0 0 60px rgba(0,0,0,.35)}
@@ -54,7 +57,9 @@ canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
  background:rgba(255,255,255,.92);color:#7a4a2a;font-size:.85rem;letter-spacing:.06em;text-shadow:none;opacity:0;transition:all .35s;pointer-events:none}
 .toast.show{opacity:1;transform:translateY(0)}
 @media (prefers-reduced-motion: reduce){.seed.pop,.seed.nudge{animation:none}}
-</style></head><body>
+</style>
+<script>(function(){var a=navigator.standalone||(window.matchMedia&&matchMedia("(display-mode: standalone)").matches);if(!a)return;var d=document.documentElement;d.classList.add("app");function f(){var p=matchMedia("(orientation: portrait)").matches,h=p?Math.max(screen.height,screen.width):Math.min(screen.height,screen.width);d.style.setProperty("--app-h",Math.max(h,innerHeight)+"px")}f();addEventListener("resize",f);addEventListener("orientationchange",function(){setTimeout(f,300)})})()</script>
+</head><body>
 <div class="stage" id="stage">
   <video src="walk.mp4" poster="s1.jpg" autoplay muted loop playsinline></video>
   <canvas id="cv"></canvas>
