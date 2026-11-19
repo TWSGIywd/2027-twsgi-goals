@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="zh-TW"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<!-- 由 build_ywd_pages.py 每天產生（637 等是佔位）；原稿 _工具/is-統監/廣布之山/青年部版介紹_template.html -->
+<title>花開滿山青年部版</title>
+<meta name="description" content="櫻梅桃李 花開滿山（青年部版）：八段風景與換景門檻">
+<link rel="icon" type="image/png" href="icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Huninn&family=Noto+Sans+TC:wght@400;500;700&display=swap">
+<style>
+/* 版面：上方是「拖拉看換景」的手機預覽＋說明，下方是八段場景一字排開的卡片，最後是畫面上會動的東西與規則 */
+:root{
+  --bg:#F3F7FA; --surface:#FFFFFF; --ink:#24323F; --sub:#566573; --line:#DCE5EC;
+  --sky:#CFE6F2; --sakura:#D9577C; --sakura-soft:#FBE3EA; --blue:#4F7FC2; --blue-soft:#E2ECF8; --gold:#E2B02C;
+  --round:"Huninn","PingFang TC","Microsoft JhengHei","Noto Sans TC",sans-serif;
+  --body:"Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#121B24; --surface:#1A2531; --ink:#E6EDF3; --sub:#A9B6C2; --line:#2C3A48;
+  --sky:#23384A; --sakura:#F08FAB; --sakura-soft:#3A2430; --blue:#8DB4EA; --blue-soft:#1F3047; --gold:#F0C755; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#121B24; --surface:#1A2531; --ink:#E6EDF3; --sub:#A9B6C2; --line:#2C3A48;
+  --sky:#23384A; --sakura:#F08FAB; --sakura-soft:#3A2430; --blue:#8DB4EA; --blue-soft:#1F3047; --gold:#F0C755; color-scheme:dark}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.75}
+img{max-width:100%}
+.open{display:inline-block;margin-top:16px;padding:8px 18px;border-radius:999px;background:var(--sakura);color:#fff;text-decoration:none;font-family:var(--round);letter-spacing:.06em}
+.open:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+.wrap{max-width:1080px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:32px 64px}
+h1,h2,h3{font-family:var(--round);font-weight:400;text-wrap:balance;margin:0}
+h1{font-size:clamp(28px,4.4vw,40px);letter-spacing:.06em}
+h1 .nw{white-space:nowrap}
+h1 small{display:block;font-size:.5em;letter-spacing:.2em;color:var(--sub);margin-top:4px}
+h2{font-size:24px;letter-spacing:.05em;margin-bottom:6px}
+.lede{color:var(--sub);max-width:62ch;margin:10px 0 0}
+.lede b{color:var(--ink);font-weight:500}
+a{color:var(--blue)}
+section{margin-top:44px}
+.hint{color:var(--sub);font-size:14.5px;margin:0 0 16px;max-width:66ch}
+
+/* 拖拉預覽 */
+.try{display:grid;grid-template-columns:minmax(0,300px) minmax(0,1fr);gap:32px;align-items:start;margin-top:28px}
+.phone{position:relative;width:100%;max-width:300px;aspect-ratio:390/700;border-radius:30px;overflow:hidden;background:var(--sky);
+  border:8px solid #22262B;box-shadow:0 18px 40px rgba(20,40,60,.22)}
+.phone img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:opacity .45s}
+.phone .skyt{position:absolute;left:0;right:0;top:7%;text-align:center;color:#fff;font-family:var(--round);text-shadow:0 2px 10px rgba(40,70,110,.55);padding:0 10px}
+.skyt .t{font-size:13px;letter-spacing:.2em}
+.skyt .n{font-size:30px;line-height:1.2;font-variant-numeric:tabular-nums}
+.skyt .n small{font-size:13px;opacity:.9}
+.skyt .w{font-size:11.5px;line-height:1.6;letter-spacing:.05em}
+.ctl{min-width:0}
+.now{font-family:var(--round);font-size:22px}
+.now b{font-weight:400;font-size:40px;color:var(--sakura);font-variant-numeric:tabular-nums}
+.now span{color:var(--sub);font-size:16px}
+.stagename{font-family:var(--round);font-size:20px;margin-top:2px}
+.stagename em{font-style:normal;color:var(--sub);font-size:15px;margin-left:8px}
+input[type=range]{width:100%;margin:18px 0 6px;accent-color:var(--sakura)}
+.track{position:relative;height:30px;display:flex;border-radius:8px;overflow:hidden;border:1px solid var(--line)}
+.track div{flex:var(--w) 0 0;display:flex;align-items:center;justify-content:center;font-size:12px;color:var(--sub);background:var(--surface);border-right:1px solid var(--line);cursor:pointer;min-width:0}
+.track div:last-child{border-right:0}
+.track div.on{background:var(--sakura-soft);color:var(--ink);font-weight:700}
+.ticks{position:relative;height:20px;font-size:11.5px;color:var(--sub);font-variant-numeric:tabular-nums;margin-top:4px}
+.ticks span{position:absolute;transform:translateX(-50%);white-space:nowrap}
+.ticks span:first-child{transform:none}.ticks span:last-child{transform:translateX(-100%)}
+.btns{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+button{font:inherit;font-size:14px;padding:6px 14px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer}
+button:hover{border-color:var(--sakura)}
+button:focus-visible,.track div:focus-visible{outline:2px solid var(--sakura);outline-offset:2px}
+.desc{margin-top:16px;padding:14px 16px;border-radius:12px;background:var(--surface);border:1px solid var(--line)}
+.desc p{margin:0}
+.desc .who{color:var(--sub);font-size:14px;margin-top:4px}
+
+/* 八段卡片 */
+.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden;display:flex;flex-direction:column;cursor:pointer}
+.card.on{border-color:var(--sakura);box-shadow:0 0 0 2px var(--sakura) inset}
+.card img{display:block;width:100%;aspect-ratio:540/700;object-fit:cover;object-position:50% 60%}
+.card .b{padding:12px 14px 14px;display:flex;flex-direction:column;gap:2px}
+.card .k{font-size:12.5px;color:var(--sub);letter-spacing:.08em}
+.card h3{font-size:19px}
+.card .r{font-variant-numeric:tabular-nums;font-size:14.5px}
+.card .r b{color:var(--sakura);font-weight:700}
+.card .s{font-size:13.5px;color:var(--sub);line-height:1.6;margin-top:4px}
+.tag{display:inline-block;font-size:12px;padding:1px 8px;border-radius:99px;background:var(--sakura-soft);color:var(--sakura);margin-left:6px;vertical-align:2px}
+
+/* 會動的東西 */
+.moves{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.mv{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 16px;min-width:0}
+.mv h3{font-size:17px;display:flex;align-items:center;gap:8px}
+.mv p{margin:6px 0 0;font-size:14.5px;color:var(--sub)}
+.dot{width:12px;height:12px;border-radius:50%;flex:none}
+.rules{margin:0;padding-left:20px;max-width:70ch}
+.rules li{margin:6px 0}
+.foot{margin-top:40px;font-size:13.5px;color:var(--sub)}
+@media (max-width:860px){.try{grid-template-columns:1fr}.phone{margin:0 auto}.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.moves{grid-template-columns:1fr}}
+@media (prefers-reduced-motion: reduce){.phone img{transition:none}}
+</style></head><body>
+<div class="wrap">
+  <header>
+    <h1><span class="nw">櫻梅桃李</span>　<span class="nw">花開滿山</span><small>青年部版</small></h1>
+    <p class="lede">男子部、女子部一起走的一座山。<b>一朵花＝一張個人資料卡</b>，青年部兩年三倍是 <b>1,896 位</b>，也就是 1,896 朵花開滿山。達成數每過一個門檻，畫面就換到下一段風景，一起走的夥伴也越來越多。</p>
+    <a class="open" href="./">打開花開滿山</a>
+  </header>
+
+  <section aria-labelledby="try-h">
+    <h2 id="try-h">拖拉看看：達成多少時換哪一段</h2>
+    <p class="hint">拖動下面的拉桿，或點八段中的任一段。手機畫面就是網頁實際的樣子（天空上的三行字會跟著變）。起始位置是 11/19 的實際數字 637 位。</p>
+    <div class="try">
+      <div class="phone" aria-live="polite">
+        <img id="pimg" src="s1.jpg" alt="第 1 段 杉林山徑的畫面">
+        <div class="skyt"><div class="t">櫻梅桃李　花開滿山</div><div class="n"><span id="pn">637</span><small> / 1,896</small></div>
+          <div class="w" id="pw">我們正走在杉林山徑<br>還有 1,259 朵花等待灌溉培育</div></div>
+      </div>
+      <div class="ctl">
+        <div class="now"><b id="cn">637</b> <span>位　（<span id="cp">33.6</span>%）</span></div>
+        <div class="stagename" id="csn">第 1 段　杉林山徑<em>0–663 位</em></div>
+        <label for="rng" class="hint" style="display:block;margin:12px 0 0">青年部達成數</label>
+        <input type="range" id="rng" min="0" max="1896" step="1" value="637">
+        <div class="track" id="track" role="group" aria-label="八段"></div>
+        <div class="ticks" id="ticks"></div>
+        <div class="btns">
+          <button type="button" id="b-now">回到 11/19（637 位）</button>
+          <button type="button" id="b-play">從頭播一次</button>
+        </div>
+        <div class="desc"><p id="dd"></p><p class="who" id="dw"></p></div>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="all-h">
+    <h2 id="all-h">八段風景</h2>
+    <p class="hint">門檻依原本八段的比例換算到 1,896 位。目標數字變動時，門檻會照同樣比例自動調整。</p>
+    <div class="grid" id="grid"></div>
+  </section>
+
+  <section aria-labelledby="mv-h">
+    <h2 id="mv-h">畫面上會動的東西</h2>
+    <div class="moves">
+      <div class="mv"><h3><span class="dot" style="background:#F2A7BA"></span><span class="dot" style="background:#9CC0F2"></span>新開的花，帶著區名飄下來</h3>
+        <p>近 30 天有新成果的區，花會帶著區名從天空飄下來。粉紅花是女子部、藍花是男子部，旁邊標 +N。落下停一下就淡出，整輪輪流播。</p></div>
+      <div class="mv"><h3><span class="dot" style="background:#FFD75E"></span><span class="dot" style="background:#FFF6D6;border:1px solid var(--line)"></span>我今天對話了</h3>
+        <p>右下角的種子按鈕。和朋友對話了就按一下，一支手機一天最多 5 次。按下去會噴出黃色、米白的小花，隨機跳出「辛苦了！」等回覆；左邊顯示今天和累計的對話次數，青年部一起累計。</p></div>
+      <div class="mv"><h3>人物往前走</h3>
+        <p>人物會一直往前走（第 8 段是在山頂一起歡呼）。</p></div>
+      <div class="mv"><h3>每天更新兩次</h3>
+        <p>每天 12:00、21:00 從統監的個人資料卡自動更新數字、換景和區名的花。</p></div>
+    </div>
+  </section>
+
+  <section aria-labelledby="rule-h">
+    <h2 id="rule-h">設計上的約定</h2>
+    <ul class="rules">
+      <li>不排名、不比較：畫面上只有青年部的總數，沒有各區達成率。</li>
+      <li>區名旁的 +N 只表示「最近有新成果」，不分高低。</li>
+      <li>手機可以「加入主畫面」，名稱是「花開滿山」，圖示是一朵花。</li>
+    </ul>
+  </section>
+
+  <p class="foot">花開滿山：<a href="./">twsgiywd.github.io/2027-twsgi-goals/yd/</a>　・　數字更新：2026/11/19 21:00</p>
+</div>
+
+<script>
+const T = 1896, NOW = 637, AT = [0, 664, 854, 1044, 1234, 1424, 1614, 1896];
+const S = [
+  {n:"杉林山徑", at:AT[0], who:"3 人：三位朋友一起出發",           d:"秋天的杉林，三個人並肩走上山徑。"},
+  {n:"楓紅溪谷", at:AT[1], who:"4 人：遠處有人跟上來",             d:"楓葉轉紅，踩著石頭過溪，帶著登山杖。"},
+  {n:"梅花小徑", at:AT[2], who:"5 人：前面多了兩位夥伴",           d:"冬天的雪路兩旁開著紅白梅花。"},
+  {n:"櫻花坡道", at:AT[3], who:"7 人：迎面又有一小隊一起走",       d:"春天的櫻花坡，花瓣隨風飄。"},
+  {n:"桃李花谷", at:AT[4], who:"7 人：遠處的夥伴越來越多",         d:"桃花、李花開滿山谷，草地也綠了。"},
+  {n:"雲海花原", at:AT[5], who:"8 人：左右兩邊都有同伴",           d:"走到雲海之上，腳邊是一整片花原。"},
+  {n:"晨曦稜線", at:AT[6], who:"約 15 人：稜線上排成一列的隊伍",   d:"清晨的稜線，山頂就在前方。"},
+  {n:"花開山頂", at:AT[7], who:"約 12 人：大家一起在山頂歡呼",     d:`兩年三倍達成，${T.toLocaleString("en-US")} 朵花全部綻放。`},
+];
+const $ = id => document.getElementById(id);
+const fmt = n => n.toLocaleString("en-US");
+const stageOf = a => { let k = 0; S.forEach((s, i) => { if (a >= s.at) k = i; }); return k; };
+const range = i => i < 7 ? `${fmt(S[i].at)}–${fmt(S[i+1].at - 1)} 位` : `${fmt(T)} 位`;
+
+// 軌道與刻度（寬度照每段的人數區間；第 8 段只有一個點，給固定寬度）
+const track = $("track"), ticks = $("ticks");
+S.forEach((s, i) => {
+  const w = i < 7 ? S[i+1].at - s.at : 60;
+  const d = document.createElement("div"); d.style.setProperty("--w", w); d.textContent = i + 1; d.tabIndex = 0;
+  d.title = `第 ${i+1} 段 ${s.n}`; d.addEventListener("click", () => set(Math.max(s.at, 1)));
+  d.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); set(Math.max(s.at, 1)); } });
+  track.appendChild(d);
+});
+const span = T + 60;
+[AT[0], AT[1], AT[3], AT[5], AT[7]].forEach(v => { const t = document.createElement("span"); t.textContent = fmt(v); t.style.left = (v / span * 100) + "%"; ticks.appendChild(t); });
+
+// 八段卡片
+const grid = $("grid");
+S.forEach((s, i) => {
+  const c = document.createElement("article"); c.className = "card"; c.tabIndex = 0;
+  c.innerHTML = `<img src="s${i+1}.jpg" alt="第 ${i+1} 段 ${s.n}" loading="lazy"><div class="b"><div class="k">第 ${i+1} 段</div>
+    <h3>${s.n}${i === stageOf(NOW) ? '<span class="tag">現在</span>' : ''}</h3>
+    <div class="r">${i < 7 ? `達成 <b>${fmt(s.at)}</b> 位起` : `達成 <b>${fmt(T)}</b> 位`}　<span style="color:var(--sub)">${Math.round(s.at / T * 100)}%</span></div>
+    <div class="s">${s.d}<br>${s.who}</div></div>`;
+  c.addEventListener("click", () => { set(Math.max(s.at, 1)); window.scrollTo({top: 0, behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth"}); });
+  grid.appendChild(c);
+});
+
+let cur = -1;
+function set(a) {
+  a = Math.max(0, Math.min(T, Math.round(a)));
+  $("rng").value = a;
+  const k = stageOf(a), gap = T - a;
+  $("cn").textContent = fmt(a); $("pn").textContent = fmt(a); $("cp").textContent = (a / T * 100).toFixed(1);
+  $("csn").innerHTML = `第 ${k+1} 段　${S[k].n}<em>${range(k)}</em>`;
+  $("pw").innerHTML = gap ? `我們正走在${S[k].n}<br>還有 ${fmt(gap)} 朵花等待灌溉培育` : `我們一起走到了花開山頂<br>${fmt(T)} 朵花全部綻放`;
+  $("dd").textContent = S[k].d; $("dw").textContent = S[k].who;
+  if (k !== cur) {
+    const img = $("pimg"); img.style.opacity = 0;
+    setTimeout(() => { img.src = `s${k+1}.jpg`; img.alt = `第 ${k+1} 段 ${S[k].n}的畫面`; img.style.opacity = 1; }, cur < 0 ? 0 : 220);
+    [...track.children].forEach((d, i) => d.classList.toggle("on", i === k));
+    [...grid.children].forEach((c, i) => c.classList.toggle("on", i === k));
+    cur = k;
+  }
+}
+$("rng").addEventListener("input", e => set(+e.target.value));
+$("b-now").addEventListener("click", () => set(NOW));
+let play = null;
+$("b-play").addEventListener("click", () => {
+  if (play) { clearInterval(play); play = null; $("b-play").textContent = "從頭播一次"; return; }
+  let a = 0; set(0); $("b-play").textContent = "停止";
+  play = setInterval(() => { a += 12; set(a); if (a >= T) { clearInterval(play); play = null; $("b-play").textContent = "從頭播一次"; } }, 40);
+});
+set(NOW);
+</script>
+</body></html>
