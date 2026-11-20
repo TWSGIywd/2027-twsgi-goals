@@ -301,7 +301,6 @@ body.idle{cursor:none}
 
 <!-- 7 一起攀登 -->
 <section class="slide paper" id="s7" data-steps="1">
-  <div class="petals" data-n="22"></div>
   <div class="txt">
     <div class="kicker">男子部・女子部一起</div>
     <div class="l1">攀登這座<br>幸福之山</div>
@@ -321,7 +320,7 @@ body.idle{cursor:none}
     <path d="M0 900 L180 560 L330 600 L520 380 L700 470 L860 400 L1000 450 L1000 900Z" fill="url(#ma7)"/>
     <path id="ridge7" d="M40 900 L260 660 L420 560 L600 250 L780 520 L900 600 L1000 650 L1000 900Z" fill="url(#mb7)"/>
     <path d="M600 250 L640 300 L618 298 L630 322 L600 306 L572 324 L582 298 L560 300Z" fill="#fff" opacity=".9"/>
-    <g class="bloom" data-step="1" id="flowers"></g>
+    <path d="M300 900 C380 840 330 800 420 760 C500 720 470 680 520 620 C560 560 520 520 560 460 C590 410 580 360 600 262" fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round" stroke-dasharray="2 14" opacity=".9"/>
   </svg>
 </section>
 
@@ -393,21 +392,6 @@ addEventListener('touchend', e => { if (tx===null) return; const dx = e.changedT
 let idleT; addEventListener('mousemove', () => { document.body.classList.remove('idle'); clearTimeout(idleT); idleT = setTimeout(()=>document.body.classList.add('idle'), 2500); });
 setTimeout(()=>document.getElementById('hint').style.opacity=0, 4500);
 
-/* ---------- 7: flowers on the mountain (櫻梅桃李) ---------- */
-(() => { const g = document.getElementById('flowers'), ns = 'http://www.w3.org/2000/svg', kinds = ['f-sk','f-um','f-mo','f-su'];
-  const top = x => x < 600 ? 900 - (x - 40) * 650 / 560 : 250 + (x - 600) * 400 / 400; // ridge line of the front mountain
-  let r = 11; const rnd = () => (r = (r * 16807) % 2147483647) / 2147483647; const list = [];
-  for (let i = 0; i < 130; i++) { const x = 70 + rnd() * 920, y0 = Math.max(top(Math.min(x, 1000)), 262) + 18; if (y0 > 880) continue;
-    const y = y0 + rnd() * (890 - y0); list.push([x, y]); }
-  list.sort((a, b) => b[1] - a[1]);
-  list.forEach(([x, y], i) => { const u = document.createElementNS(ns, 'use'); u.setAttribute('href', '#' + kinds[i % 4]);
-    const sc = (0.45 + rnd() * 0.45) * (0.6 + (y - 250) / 640 * 0.6);
-    u.setAttribute('transform', `translate(${x.toFixed(1)} ${y.toFixed(1)}) scale(${sc.toFixed(2)}) rotate(${(rnd()*72).toFixed(0)})`);
-    const w = document.createElementNS(ns, 'g'); w.setAttribute('class', 'fl'); w.style.transitionDelay = (0.15 + (900 - y) / 640 * 2.6 + rnd() * 0.35).toFixed(2) + 's';
-    w.appendChild(u); g.appendChild(w); });
-  const s = document.createElementNS(ns, 'g'); s.setAttribute('class', 'fl'); s.style.transitionDelay = '3.2s';
-  s.innerHTML = '<use href="#f-sk" transform="translate(600 238) scale(2.1)"/>'; g.appendChild(s); })();
-
 /* ---------- 6: trail geometry ---------- */
 (() => { const p = document.getElementById('walked'); const L = p.getTotalLength(); const f = D.A / D.T;
   p.style.setProperty('--L', L); p.style.setProperty('--off', L*(1-f));
@@ -435,9 +419,9 @@ const TL = (() => {
   let seed = 7; const rnd = () => { seed |= 0; seed = seed + 0x6D2B79F5 | 0; let t = Math.imul(seed ^ seed >>> 15, 1 | seed); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; };
   let F, mem, cur, m, anim, clock, sprintG, bloomG, sparks;
   const slot = i => { const r = C * Math.sqrt(i + 0.5), a = i * GA; return [r * Math.cos(a), r * Math.sin(a) * 0.98]; };
-  const discR = n => C * Math.sqrt(n + 0.5) + 5;
+  const RC = 80; let lv = 0; // 水位（達成比例，平滑跟著人數走）
   function reset(){
-    seed = 7; F = []; mem = []; cur = 0; m = 0; anim = null; clock = 0; sprintG = 0; bloomG = 0; sparks = [];
+    seed = 7; F = []; mem = []; cur = 0; m = 0; lv = D.A / T; anim = null; clock = 0; sprintG = 0; bloomG = 0; sparks = [];
     for (let i = 0; i < D.A; i++) mem.push({i, col: i < D.A*0.5 ? '#A9405F' : '#BE4D70', t: 1});
     for (let i = 0; i < 150; i++) spawn(P[0] + 160 + rnd()*900, false);
   }
@@ -481,8 +465,8 @@ const TL = (() => {
         if (anim.t >= f.t0) {
           if (f.sx === null) { f.sx = f.x; f.sy = f.y; }
           const q = Math.min(1, (anim.t - f.t0) / (f.d * (sprint ? 0.7 : 1)));
-          const [ox, oy] = slot(f.slot), e = ease(q);
-          const tx = cx + ox, ty = AX + oy, mx = (f.sx + tx)/2, my = Math.min(f.sy, ty) - 40;
+          const e = ease(q);
+          const tx = cx + (((f.slot * 61) % 97) / 97 - 0.5) * RC * 1.1, ty = AX + RC - 2 * RC * lv + 8, mx = (f.sx + tx)/2, my = Math.min(f.sy, ty) - 40;
           f.x = (1-e)*(1-e)*f.sx + 2*(1-e)*e*mx + e*e*tx; f.y = (1-e)*(1-e)*f.sy + 2*(1-e)*e*my + e*e*ty;
           if (q >= 1) { f.st = 2; mem.push({i:f.slot, col:f.col, t:0}); }
         } else { f.a = Math.min(0.9, f.a + dt); }
@@ -491,13 +475,14 @@ const TL = (() => {
     if (live && cur < 6 && F.length < 1100 && rnd() < dt * 3) { const f = spawn(cx + 60 + rnd()*520, false); f.near = rnd() < 0.3; }
     if (F.length > 0 && F.some(f => f.st === 2)) F = F.filter(f => f.st !== 2);
     for (const q of mem) if (q.t < 1) q.t = Math.min(1, q.t + dt*2.5);
-    if (bloomG > 0 && sparks.length < 60 && rnd() < 0.5) sparks.push({a:rnd()*6.28, r:discR(T), v:60 + rnd()*90, life:1});
+    lv += (mem.length / T - lv) * Math.min(1, dt * 2.5);
+    if (bloomG > 0 && sparks.length < 60 && rnd() < 0.5) sparks.push({a:rnd()*6.28, r:RC + 6, v:60 + rnd()*90, life:1});
     sparks.forEach(s => { s.r += s.v*dt; s.life -= dt*0.6; }); sparks = sparks.filter(s => s.life > 0);
     if (anim && anim.t >= anim.dur) { F.forEach(f => { if (f.st === 1) { f.st = 2; mem.push({i:f.slot, col:f.col, t:1}); } }); F = F.filter(f => f.st !== 2); m = anim.m1; anim = null; }
   }
   function draw(){
     ctx.setTransform(K,0,0,K,0,0); ctx.clearRect(0,0,1600,900);
-    const cx = X(m), n = mem.length, R = discR(n);
+    const cx = X(m), n = mem.length, R = RC;
     // axis
     ctx.lineCap = 'round';
     ctx.setLineDash([3, 12]); ctx.strokeStyle = '#D9C4C7'; ctx.lineWidth = 4;
@@ -531,12 +516,20 @@ const TL = (() => {
         ctx.bezierCurveTo(pr*0.55, -pr*0.5, pr*1.05, -pr*0.25, pr, 0); ctx.bezierCurveTo(pr*0.92, pr*0.06, pr*0.92, -pr*0.06, pr*0.86, 0);
         ctx.bezierCurveTo(pr*1.05, pr*0.25, pr*0.55, pr*0.5, 0, 0); ctx.fillStyle = `rgba(246,178,198,${0.42*bloomG})`; ctx.fill(); }
       ctx.restore(); }
-    // ring
-    ctx.lineWidth = 5; ctx.lineWidth = 4;
-    ctx.strokeStyle = n >= T ? '#C7973A' : '#D46A88'; ctx.beginPath(); ctx.arc(cx, AX, R + 9, -Math.PI/2, -Math.PI/2 + 6.2832 * n / T); ctx.stroke();
-    // members
-    for (const q of mem) { const [ox, oy] = slot(q.i); ctx.fillStyle = q.col; ctx.globalAlpha = 0.55 + 0.45*q.t;
-      ctx.beginPath(); ctx.arc(cx + ox, AX + oy, 2.1 + (1 - q.t)*2, 0, 6.29); ctx.fill(); }
+    // 水位圓
+    const gold = sprintG > 0.05 || n >= T;
+    ctx.save(); ctx.beginPath(); ctx.arc(cx, AX, R, 0, 6.29); ctx.fillStyle = 'rgba(255,255,255,.92)'; ctx.fill(); ctx.clip();
+    const top = AX + R - 2 * R * Math.min(1.02, lv);
+    for (const [amp, sp, ph, colA, colB] of [[6, 1.3, 1.7, 'rgba(240,170,190,.55)', 'rgba(236,196,120,.55)'], [5, 1.8, 0, '#E07C99', '#D9A441']]) {
+      ctx.beginPath(); ctx.moveTo(cx - R - 2, AX + R + 2);
+      for (let x = -R - 2; x <= R + 2; x += 4) ctx.lineTo(cx + x, top + Math.sin(x / 17 + clock * sp + ph) * amp * (lv < 0.995 ? 1 : 0.3));
+      ctx.lineTo(cx + R + 2, AX + R + 2); ctx.closePath();
+      const lg = ctx.createLinearGradient(0, top, 0, AX + R);
+      lg.addColorStop(0, gold ? colB : colA); lg.addColorStop(1, gold ? '#B8862E' : '#B94A6C'); ctx.fillStyle = lg; ctx.fill(); }
+    ctx.restore();
+    ctx.lineWidth = 4; ctx.strokeStyle = gold ? '#C7973A' : '#D46A88'; ctx.beginPath(); ctx.arc(cx, AX, R + 1, 0, 6.29); ctx.stroke();
+    if (!anim && (cur === 3 || cur === 6)) { ctx.font = '900 40px "Noto Sans TC","PingFang TC",sans-serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+      ctx.fillStyle = '#fff'; ctx.fillText(cur === 3 ? '75%' : '100%', cx, AX + 2); }
     ctx.globalAlpha = 1;
     for (const s of sparks) { ctx.globalAlpha = s.life*0.8; ctx.fillStyle = '#E8B85A'; ctx.beginPath(); ctx.arc(cx + Math.cos(s.a)*s.r, AX + Math.sin(s.a)*s.r, 2.6, 0, 6.29); ctx.fill(); }
     ctx.globalAlpha = 1;
