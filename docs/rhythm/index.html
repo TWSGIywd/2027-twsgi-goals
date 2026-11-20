@@ -39,6 +39,10 @@ h2{font:900 64px/1.2 var(--serif);margin:14px 0 0;color:var(--ink);letter-spacin
 #pno{position:absolute;right:28px;bottom:18px;font:500 15px var(--sans);color:var(--mute);z-index:50;letter-spacing:.08em}
 #hint{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);background:rgba(30,20,26,.78);color:#fff;font:500 15px var(--sans);padding:9px 18px;border-radius:30px;transition:opacity .8s;z-index:99;pointer-events:none}
 body.idle{cursor:none}
+#modal{position:fixed;inset:0;z-index:200;background:rgba(33,23,28,.72);display:none;padding:2.5vh 3vw}
+#modal.on{display:block}
+#modal iframe{width:100%;height:100%;border:0;border-radius:18px;background:#fff;box-shadow:0 30px 80px rgba(0,0,0,.4)}
+#mclose{position:absolute;right:calc(3vw - 18px);top:calc(2.5vh - 18px);width:48px;height:48px;border-radius:50%;border:0;background:#fff;color:#3B2832;font:700 22px/48px sans-serif;cursor:pointer;box-shadow:0 6px 20px rgba(0,0,0,.3);z-index:2}
 
 /* ---------- 1 cover ---------- */
 #s1 .bg{position:absolute;inset:-4%;background:url(cover.jpg) center/cover;animation:kb 26s ease-in-out infinite alternate}
@@ -131,7 +135,9 @@ body.idle{cursor:none}
 #s6 .hd{z-index:2}
 #s6 .num{margin-top:22px;font:500 26px/1.5 var(--sans);color:var(--ink2)}
 #s6 .num b{font:900 40px var(--serif);color:var(--roseD)}
-#s6 .foot{z-index:2;left:auto;right:90px;bottom:70px;width:640px;text-align:left;background:rgba(255,255,255,.88);border-radius:24px;padding:24px 32px;box-shadow:0 14px 40px rgba(90,53,80,.14);font-size:28px}
+#s6 .foot{text-decoration:none;color:var(--ink);cursor:pointer;z-index:2;left:auto;right:90px;bottom:70px;width:640px;text-align:left;background:rgba(255,255,255,.88);border-radius:24px;padding:24px 32px;box-shadow:0 14px 40px rgba(90,53,80,.14);font-size:28px}
+#s6 .foot small b{display:inline-block;margin-left:14px;color:#fff;background:var(--roseD);font:700 19px/1 var(--sans);padding:8px 14px;border-radius:20px}
+#s6 .foot:hover{box-shadow:0 18px 50px rgba(90,53,80,.25)}
 .walked{stroke-dasharray:var(--L);stroke-dashoffset:var(--L)}
 #s6.on .walked{animation:walk 3.2s .9s cubic-bezier(.45,0,.2,1) forwards}
 @keyframes walk{to{stroke-dashoffset:var(--off)}}
@@ -296,7 +302,7 @@ body.idle{cursor:none}
   </svg>
   <div class="hd"><div class="kicker">女子部兩年三倍</div><h2>這一條山路，<br>我們走到了 30%</h2>
     <div class="num"><b>286</b> ／ 948 位　<span style="font-size:20px">（11/21）</span></div></div>
-  <div class="foot" data-step="1">2027 年度目標＝各區兩年三倍還差的數字<small>不用再另外想；各區的數字在會後資料</small></div>
+  <a class="foot dash" data-step="1" href="../ywd.html" >2027 年度目標＝各區兩年三倍還差的數字<small>各區的數字看儀表板（每天更新）<b>打開儀表板 ↗</b></small></a>
 </section>
 
 <!-- 7 一起攀登 -->
@@ -338,6 +344,7 @@ body.idle{cursor:none}
 
 <div id="prog"></div><div id="pno"></div>
 </div>
+<div id="modal"><button id="mclose" aria-label="關閉">✕</button><iframe title="儀表板"></iframe></div>
 <div id="hint">→／空白鍵：下一步　←：上一步　F：全螢幕</div>
 
 <script>
@@ -379,16 +386,23 @@ function render(instant){
 function next(){ const m = +slides[si].dataset.steps; if (st < m) st++; else if (si < slides.length-1){ si++; st=0; } else return; render(false); }
 function prev(){ if (st > 0) { st--; render(true); } else if (si > 0) { si--; st = +slides[si].dataset.steps; render(true); } }
 function go(n){ si = Math.max(0, Math.min(slides.length-1, n)); st = 0; render(true); }
+const modal = document.getElementById('modal');
+function openDash(url){ const f = modal.querySelector('iframe'); if (f.getAttribute('src') !== url) f.setAttribute('src', url); modal.classList.add('on'); }
+modal.querySelector('iframe').addEventListener('load', e => { try { e.target.contentWindow.addEventListener('keydown', k => { if (k.key === 'Escape') closeDash(); }); } catch (_) {} });
+function closeDash(){ modal.classList.remove('on'); window.focus(); }
+document.getElementById('mclose').addEventListener('click', e => { e.stopPropagation(); closeDash(); });
+document.querySelectorAll('a.dash').forEach(a => a.addEventListener('click', e => { e.preventDefault(); e.stopPropagation(); openDash(a.getAttribute('href')); }));
 addEventListener('keydown', e => {
+  if (modal.classList.contains('on')) { if (e.key === 'Escape') closeDash(); return; }
   if (['ArrowRight','ArrowDown',' ','PageDown','Enter'].includes(e.key)) { e.preventDefault(); next(); }
   else if (['ArrowLeft','ArrowUp','PageUp','Backspace'].includes(e.key)) { e.preventDefault(); prev(); }
   else if (e.key === 'Home') go(0); else if (e.key === 'End') go(slides.length-1);
   else if (e.key === 'f' || e.key === 'F') { document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen().catch(()=>{}); }
   else if (/^[1-9]$/.test(e.key)) go(+e.key - 1);
 });
-addEventListener('click', e => { if (e.target.closest('a')) return; (e.clientX < innerWidth*0.3 ? prev : next)(); });
+addEventListener('click', e => { if (e.target.closest('a') || e.target.closest('#modal')) return; (e.clientX < innerWidth*0.3 ? prev : next)(); });
 let tx = null; addEventListener('touchstart', e => tx = e.touches[0].clientX, {passive:true});
-addEventListener('touchend', e => { if (tx===null) return; const dx = e.changedTouches[0].clientX - tx; if (Math.abs(dx) > 40) (dx < 0 ? next : prev)(); tx = null; }, {passive:true});
+addEventListener('touchend', e => { if (tx===null || modal.classList.contains('on')) return; const dx = e.changedTouches[0].clientX - tx; if (Math.abs(dx) > 40) (dx < 0 ? next : prev)(); tx = null; }, {passive:true});
 let idleT; addEventListener('mousemove', () => { document.body.classList.remove('idle'); clearTimeout(idleT); idleT = setTimeout(()=>document.body.classList.add('idle'), 2500); });
 setTimeout(()=>document.getElementById('hint').style.opacity=0, 4500);
 
