@@ -1,0 +1,543 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>2027 年的推進節奏</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&family=Noto+Serif+TC:wght@600;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#FBF6F1; --paper2:#F5E9E3; --ink:#3B2832; --ink2:#6E5862; --mute:#9A8790;
+  --rose:#D46A88; --roseD:#A9405F; --roseL:#F7D7DF; --blush:#FCEDEF;
+  --gold:#C7973A; --goldL:#F4E4BE; --plum:#5A3550; --line:#E6D6D3;
+  --serif:"Noto Serif TC","Songti TC",serif; --sans:"Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:#21171C;overflow:hidden;color:var(--ink);font-family:var(--sans);-webkit-font-smoothing:antialiased}
+#stage{position:absolute;left:50%;top:50%;width:1600px;height:900px;transform-origin:center;background:var(--paper);overflow:hidden}
+.slide{position:absolute;inset:0;opacity:0;visibility:hidden;transition:opacity .8s ease,visibility 0s .8s}
+.slide.on{opacity:1;visibility:visible;transition:opacity .8s ease,visibility 0s}
+.paper{background:radial-gradient(1200px 700px at 85% -10%,#FFF 0,rgba(255,255,255,0) 60%),radial-gradient(900px 600px at -10% 110%,#F8E4E6 0,rgba(248,228,230,0) 60%),var(--paper)}
+.kicker{font:700 22px/1 var(--sans);letter-spacing:.18em;color:var(--rose)}
+h2{font:900 64px/1.2 var(--serif);margin:14px 0 0;color:var(--ink);letter-spacing:.02em}
+.hd{position:absolute;left:110px;top:78px}
+.foot{position:absolute;left:110px;right:110px;bottom:64px;text-align:center;font:700 30px/1.5 var(--sans);color:var(--ink)}
+.foot small{display:block;font:500 20px/1.6 var(--sans);color:var(--ink2)}
+/* fragments */
+[data-step]{transition:opacity .8s ease,transform .9s cubic-bezier(.2,.8,.2,1),filter .8s ease}
+.slide.on [data-step]:not(.in){opacity:0;transform:translateY(26px);filter:blur(4px)}
+.slide.on [data-step].zoom:not(.in){transform:scale(.9)}
+.slide:not(.on) [data-step]{opacity:0}
+/* highlight sweep */
+.hl{background:linear-gradient(transparent 62%,rgba(244,170,190,.55) 62%) no-repeat 0 0/0% 100%;transition:background-size 1.1s cubic-bezier(.6,0,.2,1) .7s;padding:0 2px}
+.in .hl,.hl.in{background-size:100% 100%}
+/* progress */
+#prog{position:absolute;left:0;bottom:0;height:5px;background:linear-gradient(90deg,var(--rose),var(--gold));transition:width .6s ease;z-index:50}
+#pno{position:absolute;right:28px;bottom:18px;font:500 15px var(--sans);color:var(--mute);z-index:50;letter-spacing:.08em}
+#hint{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);background:rgba(30,20,26,.78);color:#fff;font:500 15px var(--sans);padding:9px 18px;border-radius:30px;transition:opacity .8s;z-index:99;pointer-events:none}
+body.idle{cursor:none}
+
+/* ---------- 1 cover ---------- */
+#s1 .bg{position:absolute;inset:-4%;background:url(cover.jpg) center/cover;animation:kb 26s ease-in-out infinite alternate}
+@keyframes kb{from{transform:scale(1.02) translate(0,0)}to{transform:scale(1.12) translate(-2%,-1.5%)}}
+#s1 .veil{position:absolute;inset:0;background:linear-gradient(90deg,rgba(251,246,241,.97) 0,rgba(251,246,241,.9) 34%,rgba(251,246,241,.2) 62%,rgba(251,246,241,0) 80%)}
+#s1 .tt{position:absolute;left:120px;top:250px}
+#s1 .tt h1{font:900 112px/1.15 var(--serif);margin:26px 0 0;color:var(--plum);letter-spacing:.03em}
+#s1 .tt h1 span{display:inline-block;opacity:0;transform:translateY(40px)}
+#s1.on .tt h1 span{animation:rise 1s cubic-bezier(.2,.8,.2,1) forwards}
+@keyframes rise{to{opacity:1;transform:none}}
+#s1 .sub{margin-top:34px;font:500 28px/1.4 var(--sans);color:var(--ink2);letter-spacing:.12em;opacity:0}
+#s1.on .sub{animation:rise 1.2s 1.6s forwards}
+#s1 .rule{width:0;height:3px;background:linear-gradient(90deg,var(--rose),var(--gold));margin-top:30px}
+#s1.on .rule{animation:grow 1.4s 1.2s cubic-bezier(.6,0,.2,1) forwards}
+@keyframes grow{to{width:420px}}
+.petals{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.petal{position:absolute;top:-40px;width:18px;height:14px;background:radial-gradient(circle at 30% 30%,#FFE9EF,#F3A9BC);border-radius:70% 0 70% 0;opacity:.85;animation:fall linear infinite}
+@keyframes fall{0%{transform:translate(0,-40px) rotate(0)}100%{transform:translate(var(--dx),980px) rotate(var(--r))}}
+
+/* ---------- 2 quote ---------- */
+#s2 .side{position:absolute;left:0;top:0;bottom:0;width:430px;background:linear-gradient(180deg,#F9E3E8,#F4D3DC);overflow:hidden}
+#s2 .side .who{position:absolute;left:84px;top:120px;font:900 42px/1.35 var(--serif);color:var(--plum);letter-spacing:.04em;white-space:nowrap}
+#s2 .side .who .kicker{display:block;margin-bottom:22px}
+#s2 .side .cite{position:absolute;left:84px;right:40px;bottom:96px;font:500 19px/1.7 var(--sans);color:var(--ink2)}
+#s2 .side svg{position:absolute;left:0;bottom:200px;width:430px}
+#s2 .qm{position:absolute;left:478px;top:40px;font:900 220px/1 var(--serif);color:var(--roseL)}
+#s2 .q{position:absolute;left:540px;right:110px;top:130px}
+#s2 .q p{font:600 37px/1.85 var(--serif);margin:0 0 30px;color:var(--ink);text-align:justify}
+#s2 .q p.big{font-size:44px;color:var(--plum)}
+
+/* ---------- 3 three activities ---------- */
+#s3 .path{position:absolute;left:150px;right:150px;top:420px;height:4px}
+#s3 .cards{position:absolute;left:110px;right:110px;top:250px;display:flex;gap:44px;align-items:stretch}
+.card{flex:1;background:#fff;border-radius:28px;padding:40px 36px 38px;box-shadow:0 18px 50px rgba(120,60,80,.12);position:relative;overflow:hidden;border:1px solid #F1E3E2}
+.card .when{font:900 70px/1 var(--serif);color:var(--roseD);letter-spacing:.02em}
+.card .name{font:700 40px/1.4 var(--serif);margin-top:26px;color:var(--ink);min-height:112px}
+.card .note{font:500 25px/1.55 var(--sans);color:var(--ink2);margin-top:22px;padding-top:22px;border-top:2px dashed #EBD7D6}
+.card .ico{position:absolute;right:28px;top:30px;width:74px;height:74px;opacity:.9}
+.card.main{background:linear-gradient(160deg,#fff 0,#FFF4F6 55%,#FBE1E8 100%);border:2px solid #F0B7C6;box-shadow:0 26px 70px rgba(200,80,120,.22)}
+.card.main .note{color:var(--roseD);font-weight:700}
+.card.main::after{content:"";position:absolute;inset:-2px;border-radius:28px;box-shadow:0 0 0 0 rgba(212,106,136,.5);animation:pulse 2.6s ease-out 1.4s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(212,106,136,.45)}100%{box-shadow:0 0 0 22px rgba(212,106,136,0)}}
+.card.last .when{color:#A97A22}
+
+/* ---------- 4 April-May ---------- */
+#s4 .roles{position:absolute;left:110px;right:110px;top:240px;display:grid;grid-template-columns:1fr 1.25fr;gap:44px}
+.role{background:#fff;border-radius:28px;padding:36px 46px 34px;overflow:hidden;box-shadow:0 18px 50px rgba(120,60,80,.12);border:1px solid #F1E3E2;position:relative}
+.role .lab{display:inline-block;font:700 26px/1 var(--sans);color:#fff;background:var(--plum);padding:12px 22px;border-radius:40px;letter-spacing:.08em}
+.role .big{font:900 74px/1.2 var(--serif);margin-top:28px;color:var(--ink)}
+.role.b .lab{background:var(--rose)}
+.role.b .big{color:var(--roseD)}
+.goal{margin-top:24px;padding-top:24px;border-top:2px dashed #EBD7D6;display:flex;align-items:center;gap:22px}
+.goal .t{font:700 30px/1.45 var(--sans);color:var(--ink)}
+.goal .t b{font:900 64px/1 var(--serif);color:var(--roseD);margin:0 6px;vertical-align:-6px}
+.goal .t small{display:block;font:500 21px/1.5 var(--sans);color:var(--ink2);margin-top:4px}
+.goal .ppl{display:flex;gap:10px}
+.goal .ppl svg{width:58px;height:74px;transform:scale(0);transition:transform .7s cubic-bezier(.3,1.6,.5,1)}
+.in .goal .ppl svg{transform:scale(1)}
+.in .goal .ppl svg:nth-child(1){transition-delay:.9s}.in .goal .ppl svg:nth-child(2){transition-delay:1.15s}
+#s4 .grow{position:absolute;left:110px;right:110px;top:690px;display:flex;align-items:center;justify-content:center;gap:40px}
+.yr{background:#fff;border:1px solid #EFDCDB;border-radius:24px;padding:24px 40px;text-align:center;min-width:420px}
+.yr .y{font:700 24px/1 var(--sans);color:var(--mute);letter-spacing:.1em}
+.yr .w{font:700 40px/1.4 var(--serif);margin-top:12px;color:var(--ink2)}
+.yr.now{border:2px solid var(--rose);background:linear-gradient(160deg,#fff,#FCE6EC)}
+.yr.now .y{color:var(--rose)}
+.yr.now .w{color:var(--ink)}
+.yr.now .w em{font-style:normal;color:var(--roseD);font-weight:900}
+.arrow{width:120px;height:30px}
+.arrow path{stroke:var(--rose);stroke-width:4;fill:none;stroke-dasharray:140;stroke-dashoffset:140;transition:stroke-dashoffset 1s .5s ease}
+.in .arrow path{stroke-dashoffset:0}
+
+/* ---------- 5 timeline ---------- */
+#s5 canvas{position:absolute;inset:0;width:1600px;height:900px}
+#s5 .hd{z-index:3}
+.tl{position:absolute;top:650px;width:220px;margin-left:-110px;text-align:center;z-index:3;transition:opacity .8s,transform .8s}
+.tl .tm{font:900 28px/1.2 var(--serif);color:var(--roseD);white-space:nowrap}
+.tl .cp{font:700 23px/1.45 var(--sans);color:var(--ink);margin-top:8px}
+.tl .cp span{display:block;font-weight:500;font-size:20px;color:var(--ink2)}
+.tl .cp .pc{display:inline-block;margin-top:6px;font:900 24px/1 var(--sans);color:#fff;background:var(--rose);padding:7px 14px;border-radius:30px}
+.tl.gold .tm{color:#A97A22}.tl.gold .cp .pc{background:var(--gold)}
+.tl.past{opacity:.55}
+.tl.cur .tm{transform:scale(1.08)}
+.tl::before{content:"";position:absolute;left:50%;top:-30px;height:22px;border-left:2px dashed #DCC3C6}
+#pill{position:absolute;z-index:4;transform:translate(-50%,-100%);font:900 30px/1 var(--sans);color:#fff;background:var(--roseD);padding:10px 20px;border-radius:40px;white-space:nowrap;box-shadow:0 8px 24px rgba(169,64,95,.3);transition:opacity .6s,background .6s}
+#pill small{font:700 18px var(--sans);opacity:.9;margin-right:8px}
+#pill.gold{background:var(--gold)}
+#s5 .legend{position:absolute;left:110px;bottom:40px;display:flex;gap:34px;font:500 20px var(--sans);color:var(--ink2);z-index:3}
+#s5 .legend i{display:inline-block;width:14px;height:14px;border-radius:50%;margin-right:10px;vertical-align:-1px}
+
+/* ---------- 6 mountain path ---------- */
+#s6 svg.mt{position:absolute;inset:0}
+#s6 .hd{z-index:2}
+#s6 .num{margin-top:22px;font:500 26px/1.5 var(--sans);color:var(--ink2)}
+#s6 .num b{font:900 40px var(--serif);color:var(--roseD)}
+#s6 .foot{z-index:2;left:auto;right:90px;bottom:70px;width:640px;text-align:left;background:rgba(255,255,255,.88);border-radius:24px;padding:24px 32px;box-shadow:0 14px 40px rgba(90,53,80,.14);font-size:28px}
+.walked{stroke-dasharray:var(--L);stroke-dashoffset:var(--L)}
+#s6.on .walked{animation:walk 3.2s .9s cubic-bezier(.45,0,.2,1) forwards}
+@keyframes walk{to{stroke-dashoffset:var(--off)}}
+#s6 .here{opacity:0}
+#s6.on .here{animation:fadein .8s 3.9s forwards}
+#s6 .summit{opacity:0}
+#s6.on .summit{animation:fadein 1s 4.5s forwards}
+@keyframes fadein{to{opacity:1}}
+.flag{font:900 30px var(--sans)}
+
+/* ---------- 7 together ---------- */
+#s7 .vid{position:absolute;right:110px;top:70px;width:430px;height:760px;border-radius:36px;overflow:hidden;box-shadow:0 30px 80px rgba(90,53,80,.28)}
+#s7 .vid video,#s7 .vid img{width:100%;height:100%;object-fit:cover;display:block}
+#s7 .txt{position:absolute;left:120px;top:210px;width:900px}
+#s7 .txt .l1{font:900 82px/1.3 var(--serif);color:var(--plum);margin-top:22px}
+#s7 .txt .l2{margin-top:56px;font:700 44px/1.65 var(--serif);color:var(--ink)}
+#s7 .txt .l2 em{font-style:normal;color:var(--roseD)}
+
+/* ---------- 8 bloom ---------- */
+#s8 .phone{position:absolute;left:150px;top:46px;width:384px;height:808px;border-radius:56px;background:#1F1A1D;padding:14px;box-shadow:0 30px 80px rgba(60,30,45,.35)}
+#s8 .scr{width:100%;height:100%;border-radius:44px;overflow:hidden;position:relative;background:#cfe0ea url(../yd/s1.jpg) center/cover}
+#s8 .scr iframe{position:absolute;left:0;top:0;width:390px;height:844px;border:0;transform-origin:0 0;transform:scale(.912);pointer-events:none}
+#s8 .r{position:absolute;left:640px;right:90px;top:110px}
+#s8 .r h2{font-size:78px}
+#s8 .pts{margin-top:34px;font:500 31px/1.8 var(--sans);color:var(--ink2)}
+#s8 .pts b{color:var(--ink)}
+#s8 .qr{display:flex;gap:30px;align-items:center;margin-top:36px}
+#s8 .qr img{width:190px;height:190px;border-radius:14px;background:#fff;padding:8px;box-shadow:0 8px 24px rgba(90,53,80,.15)}
+#s8 .qr div{font:500 25px/1.6 var(--sans);color:var(--ink2)}
+#s8 .qr div b{display:block;font:700 25px/1.4 var(--sans);color:var(--ink);word-break:break-all}
+#s8 .end{position:absolute;left:640px;right:60px;bottom:78px;font:900 43px/1.6 var(--serif);color:var(--roseD)}
+</style>
+</head>
+<body>
+<div id="stage">
+
+<!-- 1 封面 -->
+<section class="slide" id="s1" data-steps="0">
+  <div class="bg"></div><div class="veil"></div>
+  <div class="petals" data-n="16"></div>
+  <div class="tt">
+    <div class="kicker">兩年三倍　女子部</div>
+    <h1 id="ttl">2027 年的推進節奏</h1>
+    <div class="rule"></div>
+    <div class="sub">2026.11.22　全區會　女子部會</div>
+  </div>
+</section>
+
+<!-- 2 池田先生的指導 18-4 -->
+<section class="slide paper" id="s2" data-steps="2">
+  <div class="side">
+    <div class="who">池田先生的指導</div>
+    <svg viewBox="0 0 420 420" aria-hidden="true">
+      <defs><g id="sk"><g fill="#F7BCCB" stroke="#E992AB" stroke-width="1.2">
+        <path id="pt" d="M0 0C-11-9-14-24-6-33L0-28L6-33C14-24 11-9 0 0Z"/>
+        <use href="#pt" transform="rotate(72)"/><use href="#pt" transform="rotate(144)"/><use href="#pt" transform="rotate(216)"/><use href="#pt" transform="rotate(288)"/></g>
+        <circle r="5" fill="#F6C75E"/></g></defs>
+      <path d="M-10 410C90 330 170 250 330 70" stroke="#8B5A6C" stroke-width="7" fill="none" stroke-linecap="round"/>
+      <path d="M170 236C215 226 250 240 280 272M110 300C120 260 112 230 92 205M250 150C285 150 315 160 345 185" stroke="#8B5A6C" stroke-width="4" fill="none" stroke-linecap="round"/>
+      <use href="#sk" transform="translate(330 70) scale(1.15)"/><use href="#sk" transform="translate(280 272) scale(.9) rotate(20)"/>
+      <use href="#sk" transform="translate(92 205) scale(.8) rotate(-15)"/><use href="#sk" transform="translate(345 185) scale(.75) rotate(40)"/>
+      <use href="#sk" transform="translate(205 196) scale(.6) rotate(10)"/>
+      <ellipse cx="236" cy="118" rx="7" ry="10" fill="#F2B4C4" transform="rotate(30 236 118)"/><ellipse cx="150" cy="330" rx="6" ry="9" fill="#F2B4C4" transform="rotate(-20 150 330)"/>
+    </svg>
+    <div class="cite">《創造幸福與和平的智慧》18-4<br>（摘自《法華經的智慧》）</div>
+  </div>
+    <div class="q">
+    <p data-step="0">所謂折伏是指「<span class="hl">道出真實</span>」。……在末法時代，訴說《法華經》精髓「南無妙法蓮華經」的偉大並加以弘揚的行動，都是「折伏」。</p>
+    <p data-step="1" class="big">折伏並不是去吵架，而是<span class="hl">出自慈愛</span>。</p>
+    <p data-step="2">重要的是我們要祈求：「對方能感受到這份真心。」因為透過祈求會産生智慧、確信和歡喜。雖然很辛苦，可是當想到<span class="hl">這個人必能幸福，自己也會幸福</span>，這是最令人感到「快樂」的了！</p>
+  </div>
+</section>
+
+<!-- 3 三大主軸活動 -->
+<section class="slide paper" id="s3" data-steps="4">
+  <div class="hd"><div class="kicker">兩年三倍</div><h2>2027 三大主軸活動</h2></div>
+  <div class="cards">
+    <div class="card main" data-step="1">
+      <svg class="ico" viewBox="0 0 74 74" fill="none" stroke="#D46A88" stroke-width="3.5" stroke-linecap="round"><circle cx="37" cy="22" r="9"/><circle cx="16" cy="30" r="7"/><circle cx="58" cy="30" r="7"/><path d="M22 60c0-10 7-17 15-17s15 7 15 17M4 60c0-8 5-13 12-13M70 60c0-8-5-13-12-13"/></svg>
+      <div class="when">4、5月</div>
+      <div class="name">以本部為單位的<br>「新人活動」</div>
+      <div class="note">本部籌辦・支部邀約</div>
+    </div>
+    <div class="card" data-step="2">
+      <svg class="ico" viewBox="0 0 74 74" fill="none" stroke="#C7973A" stroke-width="3.5" stroke-linecap="round"><circle cx="37" cy="37" r="12"/><path d="M37 10v8M37 56v8M10 37h8M56 37h8M18 18l6 6M50 50l6 6M56 18l-6 6M24 50l-6 6"/></svg>
+      <div class="when">7、8月</div>
+      <div class="name">「暑期活動」</div>
+      <div class="note">邀約新入會的夥伴、<br>新朋友一起投入</div>
+    </div>
+    <div class="card last" data-step="3">
+      <svg class="ico" viewBox="0 0 74 74" fill="none" stroke="#A97A22" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 62l22-34 12 16 8-10 20 28z"/><path d="M28 28V8l14 6-14 6"/></svg>
+      <div class="when">9、10月</div>
+      <div class="name">各區的<br>「新人活動」</div>
+      <div class="note">明年的最後一波</div>
+    </div>
+  </div>
+  <div class="foot" data-step="4">因應三大主軸活動，組織的既有活動也會有所調整</div>
+</section>
+
+<!-- 4 4、5月 -->
+<section class="slide paper" id="s4" data-steps="3">
+  <div class="hd"><div class="kicker">4、5月</div><h2>以本部為單位的「新人活動」</h2></div>
+  <div class="roles">
+    <div class="role a" data-step="1"><span class="lab">本部級</span><div class="big">運營・籌辦</div>
+      <svg viewBox="0 0 200 150" style="position:absolute;right:30px;bottom:24px;width:230px;opacity:.9" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M20 140V70l80-50 80 50v70" stroke="#E7CBD3" stroke-width="5"/><path d="M80 140v-40h40v40" stroke="#E7CBD3" stroke-width="5"/><g fill="#F3C2CF"><circle cx="50" cy="118" r="9"/><circle cx="150" cy="118" r="9"/><circle cx="100" cy="72" r="9"/></g><path d="M0 140h200" stroke="#E7CBD3" stroke-width="5"/></svg></div>
+    <div class="role b" data-step="2"><span class="lab">支部長</span><div class="big">邀約</div>
+      <div class="goal">
+        <div class="t">一個支部　挑戰邀約<b>2</b>位新朋友<small>男子部、女子部各自挑戰</small></div>
+        <div class="ppl">
+          <svg viewBox="0 0 58 74"><circle cx="29" cy="18" r="13" fill="#F4B8C7"/><path d="M6 72c0-16 10-28 23-28s23 12 23 28z" fill="#E98AA4"/></svg>
+          <svg viewBox="0 0 58 74"><circle cx="29" cy="18" r="13" fill="#F4B8C7"/><path d="M6 72c0-16 10-28 23-28s23 12 23 28z" fill="#E98AA4"/></svg>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="grow" data-step="3">
+    <div class="yr"><div class="y">2026</div><div class="w">培育支部長的運營力</div></div>
+    <svg class="arrow" viewBox="0 0 120 30"><path d="M4 15h104M94 4l14 11-14 11"/></svg>
+    <div class="yr now"><div class="y">2027</div><div class="w">培養支部長的<em>對話力</em></div></div>
+  </div>
+</section>
+
+<!-- 5 推進節奏 -->
+<section class="slide paper" id="s5" data-steps="6">
+  <canvas id="cv" width="1600" height="900"></canvas>
+  <div class="hd"><div class="kicker">從現在開始</div><h2>2027 年的推進節奏</h2></div>
+  <div id="pill"><small>現在</small>30%</div>
+  <div class="tl" data-n="1"><div class="tm">2026年12月底</div><div class="cp">每區 +3 位<span>地區友好總會</span></div></div>
+  <div class="tl" data-n="2"><div class="tm">2027年1–4月</div><div class="cp">有目標的家訪</div></div>
+  <div class="tl" data-n="3"><div class="tm">4、5月</div><div class="cp">本部新人活動<br><span class="pc">5月底 75%</span></div></div>
+  <div class="tl" data-n="4"><div class="tm">7、8月</div><div class="cp">暑期活動</div></div>
+  <div class="tl gold" data-n="5"><div class="tm">9、10月</div><div class="cp">各區新人活動<span>最後衝刺</span></div></div>
+  <div class="tl" data-n="6"><div class="tm">2027年底</div><div class="cp"><span class="pc">100%</span></div></div>
+  <div class="legend"><span><i style="background:#D46A88"></i>新入會的夥伴</span><span><i style="background:#B59AA8;opacity:.6"></i>正在對話、陪伴的朋友</span></div>
+</section>
+
+<!-- 6 山路 -->
+<section class="slide" id="s6" data-steps="1">
+  <svg class="mt" viewBox="0 0 1600 900" preserveAspectRatio="none">
+    <defs>
+      <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FDF6F2"/><stop offset=".6" stop-color="#F9E6E6"/><stop offset="1" stop-color="#F3DCE0"/></linearGradient>
+      <radialGradient id="sun" cx="0.5" cy="0.5" r="0.5"><stop offset="0" stop-color="#FFF4D9"/><stop offset="1" stop-color="#FFF4D9" stop-opacity="0"/></radialGradient>
+      <linearGradient id="m1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#E4C9D6"/><stop offset="1" stop-color="#EEDBE2"/></linearGradient>
+      <linearGradient id="m2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#C79AB2"/><stop offset="1" stop-color="#DDBCCB"/></linearGradient>
+      <linearGradient id="m3" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8E5C7C"/><stop offset="1" stop-color="#B58AA2"/></linearGradient>
+      <linearGradient id="wk" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#E58AA3"/><stop offset="1" stop-color="#C7973A"/></linearGradient>
+    </defs>
+    <rect width="1600" height="900" fill="url(#sky)"/>
+    <circle cx="1080" cy="170" r="260" fill="url(#sun)"/>
+    <path d="M0 520 L180 430 L330 470 L520 330 L700 420 L860 300 L1010 380 L1180 290 L1380 400 L1600 330 L1600 900 L0 900Z" fill="url(#m1)"/>
+    <path d="M0 640 L240 520 L420 590 L620 470 L1060 160 L1300 380 L1460 460 L1600 420 L1600 900 L0 900Z" fill="url(#m2)"/>
+    <path d="M1060 160 L1110 215 L1085 212 L1100 240 L1060 220 L1020 245 L1035 212 L1010 214Z" fill="#fff" opacity=".85"/>
+    <path d="M0 800 L280 700 L520 760 L760 690 L1000 760 L1240 700 L1600 780 L1600 900 L0 900Z" fill="url(#m3)" opacity=".9"/>
+    <path id="trail" d="M300 860 C420 820 520 800 560 760 C600 720 520 690 600 650 C690 605 780 640 820 590 C860 540 790 520 840 470 C890 420 960 450 980 390 C1000 330 960 300 1000 260 C1030 225 1050 200 1060 168" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round" stroke-dasharray="2 16" opacity=".95"/>
+    <path id="walked" class="walked" d="M300 860 C420 820 520 800 560 760 C600 720 520 690 600 650 C690 605 780 640 820 590 C860 540 790 520 840 470 C890 420 960 450 980 390 C1000 330 960 300 1000 260 C1030 225 1050 200 1060 168" fill="none" stroke="url(#wk)" stroke-width="12" stroke-linecap="round"/>
+    <g class="summit"><circle cx="1060" cy="160" r="30" fill="#fff" opacity=".7"/><g transform="translate(1060 160)" fill="#F4A9BD" stroke="#E07F9C" stroke-width="1.5"><path d="M0 0c-8-20 8-26 0-34c-8 8 8 14 0 34z"/><path d="M0 0c-8-20 8-26 0-34c-8 8 8 14 0 34z" transform="rotate(72)"/><path d="M0 0c-8-20 8-26 0-34c-8 8 8 14 0 34z" transform="rotate(144)"/><path d="M0 0c-8-20 8-26 0-34c-8 8 8 14 0 34z" transform="rotate(216)"/><path d="M0 0c-8-20 8-26 0-34c-8 8 8 14 0 34z" transform="rotate(288)"/><circle r="6" fill="#F9D27A" stroke="none"/></g>
+      <text x="1110" y="140" class="flag" fill="#A97A22">100%</text></g>
+    <g class="here" id="here"><circle r="22" fill="#fff" opacity=".9"/><circle r="13" fill="#A9405F"><animate attributeName="r" values="12;15;12" dur="2s" repeatCount="indefinite"/></circle>
+      <g transform="translate(-250 -32)"><rect width="218" height="64" rx="32" fill="#A9405F"/><text x="109" y="43" text-anchor="middle" fill="#fff" style="font:900 30px var(--sans)">我們在這裡</text></g></g>
+  </svg>
+  <div class="hd"><div class="kicker">女子部兩年三倍</div><h2>這一條山路，<br>我們走到了 30%</h2>
+    <div class="num"><b>286</b> ／ 948 位　<span style="font-size:20px">（11/21）</span></div></div>
+  <div class="foot" data-step="1">2027 年度目標＝各區兩年三倍還差的數字<small>不用再另外想；各區的數字在會後資料</small></div>
+</section>
+
+<!-- 7 一起攀登 -->
+<section class="slide paper" id="s7" data-steps="1">
+  <div class="petals" data-n="22"></div>
+  <div class="txt">
+    <div class="kicker">男子部・女子部一起</div>
+    <div class="l1">攀登這座<br>幸福之山</div>
+    <div class="l2" data-step="1">讓<em>櫻梅桃李</em>的花，<br>在我們一起攀登的<br>廣布之山綻放</div>
+  </div>
+  <div class="vid"><video src="../yd/walk8.mp4" poster="../yd/walk8.jpg" muted loop playsinline preload="auto"></video></div>
+</section>
+
+<!-- 8 花開滿山 -->
+<section class="slide paper" id="s8" data-steps="1">
+  <div class="phone"><div class="scr"><iframe data-src="../yd/" title="櫻梅桃李 花開滿山" loading="lazy"></iframe></div></div>
+  <div class="r">
+    <div class="kicker">男子部・女子部一起的青年部版</div>
+    <h2>櫻梅桃李　花開滿山</h2>
+    <div class="pts">一朵花＝一位朋友・青年部兩年三倍 <b>1,896</b> 位<br>和朋友對話了，就按一下<b>「我今天對話了」</b></div>
+    <div class="qr"><img src="qr_yd.png" alt="QR code"><div>掃描打開，加入手機主畫面<b>twsgiywd.github.io/2027-twsgi-goals/yd/</b></div></div>
+  </div>
+  <div class="end" data-step="1">朝向「邁向創立100週年　勇躍前進之年」<br>我們一起走到開滿花的山頂</div>
+</section>
+
+<div id="prog"></div><div id="pno"></div>
+</div>
+<div id="hint">→／空白鍵：下一步　←：上一步　F：全螢幕</div>
+
+<script>
+const D = {A:286, T:948, YE:466, M75:723};
+const stage = document.getElementById('stage');
+const slides = [...document.querySelectorAll('.slide')];
+let si = 0, st = 0;
+
+function fit(){
+  const k = Math.min(innerWidth/1600, innerHeight/900);
+  stage.style.transform = `translate(-50%,-50%) scale(${k})`;
+  TL.resize(k);
+}
+// title letters
+(() => { const h = document.getElementById('ttl'); const t = h.textContent; h.textContent='';
+  [...t].forEach((c,i)=>{ const s=document.createElement('span'); s.textContent=c===' '?' ':c; s.style.animationDelay=(0.25+i*0.07)+'s'; h.appendChild(s); }); })();
+// petals
+document.querySelectorAll('.petals').forEach(box => { const n=+box.dataset.n;
+  for(let i=0;i<n;i++){ const p=document.createElement('i'); p.className='petal';
+    const s=0.6+Math.random()*0.9; p.style.left=(Math.random()*100)+'%'; p.style.width=18*s+'px'; p.style.height=14*s+'px';
+    p.style.animationDuration=(9+Math.random()*10)+'s'; p.style.animationDelay=(-Math.random()*18)+'s';
+    p.style.setProperty('--dx',(Math.random()*260-60)+'px'); p.style.setProperty('--r',(Math.random()*720-360)+'deg');
+    p.style.opacity=0.45+Math.random()*0.45; box.appendChild(p);} });
+
+const hooks = {
+  s5: (step, instant) => TL.go(step, instant),
+  s7: (step) => { const v = document.querySelector('#s7 video'); v.currentTime = 0; v.play().catch(()=>{}); },
+  s8: () => { const f = document.querySelector('#s8 iframe'); if (!f.src) f.src = f.dataset.src; },
+};
+function render(instant){
+  slides.forEach((s,i)=>s.classList.toggle('on', i===si));
+  const s = slides[si];
+  s.querySelectorAll('[data-step]').forEach(e => e.classList.toggle('in', st >= +e.dataset.step));
+  if (hooks[s.id]) hooks[s.id](st, instant);
+  if (s.id !== 's5') TL.stop();
+  if (si !== 6) { const v=document.querySelector('#s7 video'); v.pause(); }
+  document.getElementById('prog').style.width = ((si + (+s.dataset.steps ? st/(+s.dataset.steps) : 1)*0.999) / slides.length * 100) + '%';
+  document.getElementById('pno').textContent = (si+1) + ' / ' + slides.length;
+  history.replaceState(null, '', '#' + (si+1) + (st ? '.' + st : ''));
+}
+function next(){ const m = +slides[si].dataset.steps; if (st < m) st++; else if (si < slides.length-1){ si++; st=0; } else return; render(false); }
+function prev(){ if (st > 0) { st--; render(true); } else if (si > 0) { si--; st = +slides[si].dataset.steps; render(true); } }
+function go(n){ si = Math.max(0, Math.min(slides.length-1, n)); st = 0; render(true); }
+addEventListener('keydown', e => {
+  if (['ArrowRight','ArrowDown',' ','PageDown','Enter'].includes(e.key)) { e.preventDefault(); next(); }
+  else if (['ArrowLeft','ArrowUp','PageUp','Backspace'].includes(e.key)) { e.preventDefault(); prev(); }
+  else if (e.key === 'Home') go(0); else if (e.key === 'End') go(slides.length-1);
+  else if (e.key === 'f' || e.key === 'F') { document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen().catch(()=>{}); }
+  else if (/^[1-9]$/.test(e.key)) go(+e.key - 1);
+});
+addEventListener('click', e => { if (e.target.closest('a')) return; (e.clientX < innerWidth*0.3 ? prev : next)(); });
+let tx = null; addEventListener('touchstart', e => tx = e.touches[0].clientX, {passive:true});
+addEventListener('touchend', e => { if (tx===null) return; const dx = e.changedTouches[0].clientX - tx; if (Math.abs(dx) > 40) (dx < 0 ? next : prev)(); tx = null; }, {passive:true});
+let idleT; addEventListener('mousemove', () => { document.body.classList.remove('idle'); clearTimeout(idleT); idleT = setTimeout(()=>document.body.classList.add('idle'), 2500); });
+setTimeout(()=>document.getElementById('hint').style.opacity=0, 4500);
+
+/* ---------- 6: trail geometry ---------- */
+(() => { const p = document.getElementById('walked'); const L = p.getTotalLength(); const f = D.A / D.T;
+  p.style.setProperty('--L', L); p.style.setProperty('--off', L*(1-f));
+  const pt = p.getPointAtLength(L*f); document.getElementById('here').setAttribute('transform', `translate(${pt.x} ${pt.y})`); })();
+
+/* ---------- 5: timeline simulation ---------- */
+const TL = (() => {
+  const cv = document.getElementById('cv'), ctx = cv.getContext('2d');
+  let K = 1;
+  const AX = 458;
+  const KM = [[-1,240],[0,350],[4,735],[5,835],[8,1060],[10,1225],[12,1385]];
+  const X = m => { for (let i = 1; i < KM.length; i++) if (m <= KM[i][0] || i === KM.length-1) { const [a,xa] = KM[i-1], [b,xb] = KM[i]; return xa + (m - a) * (xb - xa) / (b - a); } };
+  const GA = Math.PI * (3 - Math.sqrt(5)), C = 4.5, T = D.T;
+  // step plan: month the disc travels to, total members, friends spawned, approach share, conversion window
+  const PLAN = [
+    {m:-1, mem:D.A},
+    {m:0,  mem:D.YE,  spawn:150, near:0.3, dur:3.2, col:'#CF5C80'},
+    {m:4,  mem:D.YE + Math.round((D.M75 - D.YE)*0.18), spawn:300, near:0.9, dur:4.2, col:'#DB7193'},
+    {m:5,  mem:D.M75, spawn:340, near:0.5, dur:3.6, col:'#E585A2', burst:true},
+    {m:8,  mem:D.M75 + Math.round((T - D.M75)*0.38), spawn:200, near:0.5, dur:3.4, col:'#EE9DB3'},
+    {m:10, mem:T - Math.max(4, Math.round(T*0.02)), spawn:240, near:0.7, dur:3.6, col:'#E3B04E', sprint:true},
+    {m:12, mem:T, spawn:0, near:0, dur:3.0, col:'#EAC266', bloom:true},
+  ];
+  const nodeM = [null, 0, 2.15, 4.5, 6.9, 9, 12];
+  document.querySelectorAll('.tl').forEach(el => el.style.left = X(nodeM[+el.dataset.n]) + 'px');
+  let seed = 7; const rnd = () => { seed |= 0; seed = seed + 0x6D2B79F5 | 0; let t = Math.imul(seed ^ seed >>> 15, 1 | seed); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; };
+  let F, mem, cur, m, anim, clock, sprintG, bloomG, sparks;
+  const slot = i => { const r = C * Math.sqrt(i + 0.5), a = i * GA; return [r * Math.cos(a), r * Math.sin(a) * 0.98]; };
+  const discR = n => C * Math.sqrt(n + 0.5) + 6;
+  function reset(){
+    seed = 7; F = []; mem = []; cur = 0; m = -1; anim = null; clock = 0; sprintG = 0; bloomG = 0; sparks = [];
+    for (let i = 0; i < D.A; i++) mem.push({i, col: i < D.A*0.5 ? '#A9405F' : '#BE4D70', t: 1});
+    for (let i = 0; i < 150; i++) spawn(X(-1) + 170 + rnd()*900, false);
+  }
+  function spawn(x, near){
+    const y = near ? AX + (rnd() < .5 ? -1 : 1) * (40 + rnd()*90) : AX + (rnd() < .5 ? -1 : 1) * (60 + rnd()*165);
+    const f = {x, y, hx:x, hy:y, ph:rnd()*6.28, a:0, near, st:0, tw:0.6+rnd()*0.8};
+    F.push(f); return f;
+  }
+  function plan(k){
+    const P = PLAN[k], m0 = PLAN[k-1].m, x0 = X(m0), x1 = X(P.m);
+    for (let i = 0; i < P.spawn; i++) { const x = x0 - 40 + rnd() * (x1 - x0 + 420); spawn(Math.min(1530, x), rnd() < P.near * 0.6); }
+    // pull drifting friends closer (家訪・陪伴)
+    F.forEach(f => { if (f.st === 0 && f.hx < x1 + 360 && rnd() < P.near) { f.near = true; f.hy = AX + Math.sign(f.hy - AX || 1) * (36 + rnd()*80); f.hx += (x1 - f.hx) * 0.15; } });
+    const need = P.mem - (mem.length + F.filter(f=>f.st===1).length);
+    const cand = F.filter(f => f.st === 0).sort((a, b) => (b.near - a.near) || (Math.abs(a.hx - x1) - Math.abs(b.hx - x1)));
+    let n = mem.length + F.filter(f=>f.st===1).length;
+    for (let i = 0; i < need; i++) {
+      const f = cand[i] || spawn(x1 + (rnd()-.5)*300, true);
+      f.st = 1; f.slot = n++; f.col = P.col; f.t0 = (0.12 + rnd() * 0.78) * P.dur; f.d = 0.9 + rnd() * 0.6; f.sx = null;
+    }
+    anim = {k, t:0, dur:P.dur, m0, m1:P.m};
+  }
+  const ease = p => p < .5 ? 4*p*p*p : 1 - Math.pow(-2*p + 2, 3)/2;
+  function step(dt){
+    clock += dt;
+    if (anim) {
+      anim.t += dt; const p = Math.min(1, anim.t / (anim.dur * 0.92));
+      m = anim.m0 + (anim.m1 - anim.m0) * ease(p);
+    }
+    const cx = X(m);
+    const sprint = cur === 5 || (anim && anim.k === 5);
+    sprintG += ((sprint ? 1 : 0) - sprintG) * Math.min(1, dt*2);
+    if (cur === 6 && (!anim || anim.t > anim.dur*0.8)) bloomG = Math.min(1, bloomG + dt*0.7);
+    for (const f of F) {
+      if (f.st === 0) {
+        if (f.near) { const s = Math.sign(f.hy - AX) || 1; f.hy += (AX + s*30 - f.hy) * dt * 0.04; f.hx += (cx + 40 - f.hx) * dt * 0.01; }
+        f.a = Math.min(f.near ? 0.85 : 0.5, f.a + dt*0.8);
+        const tx = f.hx + Math.sin(clock*0.5 + f.ph)*10, ty = f.hy + Math.cos(clock*0.6 + f.ph*1.3)*8;
+        f.x += (tx - f.x) * Math.min(1, dt*1.4); f.y += (ty - f.y) * Math.min(1, dt*1.4);
+      } else if (f.st === 1 && anim) {
+        if (anim.t >= f.t0) {
+          if (f.sx === null) { f.sx = f.x; f.sy = f.y; }
+          const q = Math.min(1, (anim.t - f.t0) / (f.d * (sprint ? 0.7 : 1)));
+          const [ox, oy] = slot(f.slot), e = ease(q);
+          const tx = cx + ox, ty = AX + oy, mx = (f.sx + tx)/2, my = Math.min(f.sy, ty) - 40;
+          f.x = (1-e)*(1-e)*f.sx + 2*(1-e)*e*mx + e*e*tx; f.y = (1-e)*(1-e)*f.sy + 2*(1-e)*e*my + e*e*ty;
+          if (q >= 1) { f.st = 2; mem.push({i:f.slot, col:f.col, t:0}); }
+        } else { f.a = Math.min(0.9, f.a + dt); }
+      }
+    }
+    if (live && cur < 6 && F.length < 1100 && rnd() < dt * 3) { const f = spawn(cx + 60 + rnd()*520, false); f.near = rnd() < 0.3; }
+    if (F.length > 0 && F.some(f => f.st === 2)) F = F.filter(f => f.st !== 2);
+    for (const q of mem) if (q.t < 1) q.t = Math.min(1, q.t + dt*2.5);
+    if (bloomG > 0 && sparks.length < 60 && rnd() < 0.5) sparks.push({a:rnd()*6.28, r:discR(T), v:60 + rnd()*90, life:1});
+    sparks.forEach(s => { s.r += s.v*dt; s.life -= dt*0.6; }); sparks = sparks.filter(s => s.life > 0);
+    if (anim && anim.t >= anim.dur) { F.forEach(f => { if (f.st === 1) { f.st = 2; mem.push({i:f.slot, col:f.col, t:1}); } }); F = F.filter(f => f.st !== 2); m = anim.m1; anim = null; }
+  }
+  function draw(){
+    ctx.setTransform(K,0,0,K,0,0); ctx.clearRect(0,0,1600,900);
+    const cx = X(m), n = mem.length, R = discR(n);
+    // axis
+    ctx.lineCap = 'round';
+    ctx.setLineDash([3, 12]); ctx.strokeStyle = '#D9C4C7'; ctx.lineWidth = 4;
+    ctx.beginPath(); ctx.moveTo(X(-1), AX); ctx.lineTo(X(12), AX); ctx.stroke(); ctx.setLineDash([]);
+    const g = ctx.createLinearGradient(X(-1), 0, X(12), 0);
+    g.addColorStop(0, '#E6A3B6'); g.addColorStop(0.62, '#D46A88'); g.addColorStop(0.72, '#D9A441'); g.addColorStop(1, '#E2B65A');
+    ctx.strokeStyle = g; ctx.lineWidth = 6; ctx.beginPath(); ctx.moveTo(X(-1), AX); ctx.lineTo(cx, AX); ctx.stroke();
+    [0, 4, 5, 8, 10, 12].forEach((mm, i) => { const x = X(mm), done = m >= mm - 0.01;
+      ctx.beginPath(); ctx.arc(x, AX, 9, 0, 6.29); ctx.fillStyle = done ? (mm >= 10 ? '#C7973A' : '#D46A88') : '#fff'; ctx.fill();
+      ctx.lineWidth = 3; ctx.strokeStyle = done ? '#fff' : '#D9C4C7'; ctx.stroke(); });
+    // friends
+    for (const f of F) {
+      if (f.st === 1 && f.sx !== null) { ctx.fillStyle = f.col; ctx.globalAlpha = 0.95; ctx.beginPath(); ctx.arc(f.x, f.y, 3.6, 0, 6.29); ctx.fill();
+        if (sprintG > .3) { ctx.globalAlpha = 0.25; ctx.strokeStyle = '#E3B04E'; ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(f.x, f.y); ctx.lineTo(f.x - (cx - f.x)*0.08, f.y - (AX - f.y)*0.08); ctx.stroke(); }
+        continue; }
+      const tw = 0.75 + 0.25*Math.sin(clock*2*f.tw + f.ph);
+      ctx.globalAlpha = f.a * tw; ctx.fillStyle = f.near || f.st === 1 ? '#B67C93' : '#B59AA8';
+      ctx.beginPath(); ctx.arc(f.x, f.y, f.near || f.st === 1 ? 3.2 : 2.4, 0, 6.29); ctx.fill();
+    }
+    ctx.globalAlpha = 1;
+    // disc glow
+    const gl = ctx.createRadialGradient(cx, AX, R*0.3, cx, AX, R + 60 + 20*sprintG);
+    gl.addColorStop(0, sprintG > 0.05 ? `rgba(247,214,150,${0.55*sprintG + 0.25})` : 'rgba(252,226,233,.6)'); gl.addColorStop(1, 'rgba(252,226,233,0)');
+    ctx.fillStyle = gl; ctx.beginPath(); ctx.arc(cx, AX, R + 80, 0, 6.29); ctx.fill();
+    // bloom petals
+    if (bloomG > 0) { ctx.save(); ctx.translate(cx, AX); ctx.rotate(-Math.PI/2 + clock*0.05); const pr = R * (0.9 + 0.55*ease(bloomG));
+      for (let i = 0; i < 5; i++) { ctx.rotate(Math.PI*2/5); ctx.beginPath(); ctx.moveTo(0,0);
+        ctx.bezierCurveTo(pr*0.55, -pr*0.5, pr*1.05, -pr*0.25, pr, 0); ctx.bezierCurveTo(pr*0.92, pr*0.06, pr*0.92, -pr*0.06, pr*0.86, 0);
+        ctx.bezierCurveTo(pr*1.05, pr*0.25, pr*0.55, pr*0.5, 0, 0); ctx.fillStyle = `rgba(246,178,198,${0.42*bloomG})`; ctx.fill(); }
+      ctx.restore(); }
+    // ring
+    ctx.lineWidth = 5; ctx.strokeStyle = 'rgba(212,106,136,.18)'; ctx.beginPath(); ctx.arc(cx, AX, discR(T) + 16, 0, 6.29); ctx.stroke();
+    ctx.strokeStyle = n >= T ? '#C7973A' : '#D46A88'; ctx.beginPath(); ctx.arc(cx, AX, discR(T) + 16, -Math.PI/2, -Math.PI/2 + 6.2832 * n / T); ctx.stroke();
+    // members
+    for (const q of mem) { const [ox, oy] = slot(q.i); ctx.fillStyle = q.col; ctx.globalAlpha = 0.55 + 0.45*q.t;
+      ctx.beginPath(); ctx.arc(cx + ox, AX + oy, 2.7 + (1 - q.t)*2.4, 0, 6.29); ctx.fill(); }
+    ctx.globalAlpha = 1;
+    for (const s of sparks) { ctx.globalAlpha = s.life*0.8; ctx.fillStyle = '#E8B85A'; ctx.beginPath(); ctx.arc(cx + Math.cos(s.a)*s.r, AX + Math.sin(s.a)*s.r, 2.6, 0, 6.29); ctx.fill(); }
+    ctx.globalAlpha = 1;
+    // pill
+    const pill = document.getElementById('pill');
+    pill.style.left = cx + 'px'; pill.style.top = (AX - discR(T) - 32) + 'px';
+    const lab = {0:['現在', Math.round(D.A/T*100) + '%'], 3:['5月底', '75%'], 6:['2027年底', '100%']}[cur];
+    const show = lab && !anim;
+    pill.style.opacity = show ? 1 : 0; if (lab) pill.innerHTML = `<small>${lab[0]}</small>${lab[1]}`;
+    pill.classList.toggle('gold', cur === 6);
+  }
+  let last = 0, live = false;
+  function loop(ts){ const dt = Math.min(0.05, (ts - last)/1000 || 0); last = ts; step(dt); draw(); if (live) requestAnimationFrame(loop); }
+  function labels(){ document.querySelectorAll('.tl').forEach(el => { const n = +el.dataset.n;
+    el.classList.toggle('in', n <= cur); el.style.opacity = n <= cur ? '' : 0; el.style.transform = n <= cur ? '' : 'translateY(20px)';
+    el.classList.toggle('past', n < cur); el.classList.toggle('cur', n === cur); }); }
+  function go(k, instant){
+    if (instant || k < cur || k > cur + 1) { reset(); for (let j = 1; j <= k; j++) { plan(j); while (anim) step(1/30); } bloomG = k === 6 ? 1 : 0; cur = k; }
+    else if (k === cur + 1) { while (anim) step(1/30); cur = k; plan(k); }
+    labels();
+    if (!live) { live = true; last = performance.now(); requestAnimationFrame(loop); }
+  }
+  function resize(k){ K = Math.min(3, k * (devicePixelRatio || 1)); cv.width = 1600*K; cv.height = 900*K; }
+  reset();
+  return {go, resize, stop(){ live = false; }};
+})();
+
+addEventListener('resize', fit); fit();
+const h = location.hash.slice(1).split('.'); if (+h[0]) { si = Math.min(slides.length-1, +h[0]-1); st = Math.min(+slides[si].dataset.steps, +h[1]||0); }
+render(true);
+addEventListener('hashchange', () => { const h = location.hash.slice(1).split('.'); if (+h[0]) { si = Math.min(slides.length-1, +h[0]-1); st = Math.min(+slides[si].dataset.steps, +h[1]||0); render(true); } });
+</script>
+</body>
+</html>
