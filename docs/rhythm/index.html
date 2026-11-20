@@ -113,19 +113,17 @@ body.idle{cursor:none}
 /* ---------- 5 timeline ---------- */
 #s5 canvas{position:absolute;inset:0;width:1600px;height:900px}
 #s5 .hd{z-index:3}
-.tl{position:absolute;top:650px;width:220px;margin-left:-110px;text-align:center;z-index:3;transition:opacity .8s,transform .8s}
-.tl .tm{font:900 28px/1.2 var(--serif);color:var(--roseD);white-space:nowrap}
-.tl .cp{font:700 23px/1.45 var(--sans);color:var(--ink);margin-top:8px}
-.tl .cp span{display:block;font-weight:500;font-size:20px;color:var(--ink2)}
-.tl .cp .pc{display:inline-block;margin-top:6px;font:900 24px/1 var(--sans);color:#fff;background:var(--rose);padding:7px 14px;border-radius:30px}
+.tl{position:absolute;top:232px;width:222px;margin-left:-111px;height:196px;background:#fff;border:2px solid #EFDCDB;border-radius:22px;padding:22px 10px 0;text-align:center;box-shadow:0 10px 30px rgba(120,60,80,.08);z-index:3;transition:opacity .7s,transform .7s,background .5s,border-color .5s,box-shadow .5s}
+.tl .tm{font:900 30px/1.2 var(--serif);color:var(--roseD);white-space:nowrap}
+.tl .cp{font:700 31px/1.35 var(--sans);color:var(--ink);margin-top:16px}
+.tl .cp span{display:block;font:500 22px/1.5 var(--sans);color:var(--ink2);margin-top:4px}
+.tl .cp .pc{display:inline-block;margin-top:10px;font:900 27px/1 var(--sans);color:#fff;background:var(--rose);padding:9px 16px;border-radius:30px}
 .tl.gold .tm{color:#A97A22}.tl.gold .cp .pc{background:var(--gold)}
-.tl.past{opacity:.55}
-.tl.cur .tm{transform:scale(1.08)}
-.tl::before{content:"";position:absolute;left:50%;top:-30px;height:22px;border-left:2px dashed #DCC3C6}
-#pill{position:absolute;z-index:4;transform:translate(-50%,-100%);font:900 30px/1 var(--sans);color:#fff;background:var(--roseD);padding:10px 20px;border-radius:40px;white-space:nowrap;box-shadow:0 8px 24px rgba(169,64,95,.3);transition:opacity .6s,background .6s}
-#pill small{font:700 18px var(--sans);opacity:.9;margin-right:8px}
-#pill.gold{background:var(--gold)}
-#s5 .legend{position:absolute;left:110px;bottom:40px;display:flex;gap:34px;font:500 20px var(--sans);color:var(--ink2);z-index:3}
+.tl.cur{border:3px solid var(--rose);background:linear-gradient(180deg,#fff,#FCE4EB);box-shadow:0 20px 46px rgba(200,80,120,.25);transform:translateY(-10px)}
+.tl.gold.cur{border-color:var(--gold);background:linear-gradient(180deg,#fff,#FBEFD4);box-shadow:0 20px 46px rgba(199,151,58,.28)}
+#now{position:absolute;left:110px;top:478px;transform:translateX(-50%);z-index:3;font:900 26px/1 var(--sans);color:#fff;background:var(--roseD);padding:9px 16px;border-radius:30px;white-space:nowrap}
+#now small{font:700 17px var(--sans);margin-right:6px}
+#s5 .legend{position:absolute;left:110px;bottom:34px;display:flex;gap:34px;font:500 20px var(--sans);color:var(--ink2);z-index:3}
 #s5 .legend i{display:inline-block;width:14px;height:14px;border-radius:50%;margin-right:10px;vertical-align:-1px}
 
 /* ---------- 6 mountain path ---------- */
@@ -145,8 +143,10 @@ body.idle{cursor:none}
 .flag{font:900 30px var(--sans)}
 
 /* ---------- 7 together ---------- */
-#s7 .vid{position:absolute;right:110px;top:70px;width:430px;height:760px;border-radius:36px;overflow:hidden;box-shadow:0 30px 80px rgba(90,53,80,.28)}
-#s7 .vid video,#s7 .vid img{width:100%;height:100%;object-fit:cover;display:block}
+#s7 svg.mt7{position:absolute;right:0;bottom:0;width:1000px;height:900px}
+#s7 .fl{transform:scale(0);transform-box:fill-box;transform-origin:center;transition:transform .7s cubic-bezier(.3,1.7,.5,1)}
+#s7 .bloom.in .fl{transform:scale(1)}
+#s7 .bloom{opacity:1!important;filter:none!important;transform:none!important}
 #s7 .txt{position:absolute;left:120px;top:210px;width:900px}
 #s7 .txt .l1{font:900 82px/1.3 var(--serif);color:var(--plum);margin-top:22px}
 #s7 .txt .l2{margin-top:56px;font:700 44px/1.65 var(--serif);color:var(--ink)}
@@ -260,7 +260,7 @@ body.idle{cursor:none}
 <section class="slide paper" id="s5" data-steps="6">
   <canvas id="cv" width="1600" height="900"></canvas>
   <div class="hd"><div class="kicker">從現在開始</div><h2>2027 年的推進節奏</h2></div>
-  <div id="pill"><small>現在</small>30%</div>
+  <div id="now"><small>現在</small>30%</div>
   <div class="tl" data-n="1"><div class="tm">2026年12月底</div><div class="cp">每區 +3 位<span>地區友好總會</span></div></div>
   <div class="tl" data-n="2"><div class="tm">2027年1–4月</div><div class="cp">有目標的家訪</div></div>
   <div class="tl" data-n="3"><div class="tm">4、5月</div><div class="cp">本部新人活動<br><span class="pc">5月底 75%</span></div></div>
@@ -307,7 +307,22 @@ body.idle{cursor:none}
     <div class="l1">攀登這座<br>幸福之山</div>
     <div class="l2" data-step="1">讓<em>櫻梅桃李</em>的花，<br>在我們一起攀登的<br>廣布之山綻放</div>
   </div>
-  <div class="vid"><video src="../yd/walk8.mp4" poster="../yd/walk8.jpg" muted loop playsinline preload="auto"></video></div>
+  <svg class="mt7" viewBox="0 0 1000 900" aria-hidden="true">
+    <defs>
+      <radialGradient id="sun7" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#FFF1CF"/><stop offset="1" stop-color="#FFF1CF" stop-opacity="0"/></radialGradient>
+      <linearGradient id="ma7" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#EBD3DC"/><stop offset="1" stop-color="#F4E4E8"/></linearGradient>
+      <linearGradient id="mb7" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#D7B3C3"/><stop offset="1" stop-color="#E9D2DA"/></linearGradient>
+      <g id="f-sk"><g fill="#F8C3D0"><path id="p7" d="M0 0C-9-7-11-19-5-26L0-22L5-26C11-19 9-7 0 0Z"/><use href="#p7" transform="rotate(72)"/><use href="#p7" transform="rotate(144)"/><use href="#p7" transform="rotate(216)"/><use href="#p7" transform="rotate(288)"/></g><circle r="4" fill="#F4C35A"/></g>
+      <g id="f-um"><g fill="#E57F98"><circle cx="0" cy="-11" r="9"/><circle cx="10.5" cy="-3.4" r="9"/><circle cx="6.5" cy="8.9" r="9"/><circle cx="-6.5" cy="8.9" r="9"/><circle cx="-10.5" cy="-3.4" r="9"/></g><circle r="4.5" fill="#F7D36E"/></g>
+      <g id="f-mo"><g fill="#F6B4A2"><ellipse cx="0" cy="-12" rx="7" ry="11"/><ellipse cx="0" cy="-12" rx="7" ry="11" transform="rotate(72)"/><ellipse cx="0" cy="-12" rx="7" ry="11" transform="rotate(144)"/><ellipse cx="0" cy="-12" rx="7" ry="11" transform="rotate(216)"/><ellipse cx="0" cy="-12" rx="7" ry="11" transform="rotate(288)"/></g><circle r="4" fill="#E9A23B"/></g>
+      <g id="f-su"><g fill="#FFFFFF" stroke="#E6D3DA" stroke-width="1"><circle cx="0" cy="-10" r="8"/><circle cx="9.5" cy="-3.1" r="8"/><circle cx="5.9" cy="8.1" r="8"/><circle cx="-5.9" cy="8.1" r="8"/><circle cx="-9.5" cy="-3.1" r="8"/></g><circle r="3.5" fill="#C9D86A"/></g>
+    </defs>
+    <circle cx="600" cy="230" r="260" fill="url(#sun7)"/>
+    <path d="M0 900 L180 560 L330 600 L520 380 L700 470 L860 400 L1000 450 L1000 900Z" fill="url(#ma7)"/>
+    <path id="ridge7" d="M40 900 L260 660 L420 560 L600 250 L780 520 L900 600 L1000 650 L1000 900Z" fill="url(#mb7)"/>
+    <path d="M600 250 L640 300 L618 298 L630 322 L600 306 L572 324 L582 298 L560 300Z" fill="#fff" opacity=".9"/>
+    <g class="bloom" data-step="1" id="flowers"></g>
+  </svg>
 </section>
 
 <!-- 8 花開滿山 -->
@@ -350,7 +365,6 @@ document.querySelectorAll('.petals').forEach(box => { const n=+box.dataset.n;
 
 const hooks = {
   s5: (step, instant) => TL.go(step, instant),
-  s7: (step) => { const v = document.querySelector('#s7 video'); v.currentTime = 0; v.play().catch(()=>{}); },
   s8: () => { const f = document.querySelector('#s8 iframe'); if (!f.src) f.src = f.dataset.src; },
 };
 function render(instant){
@@ -359,7 +373,6 @@ function render(instant){
   s.querySelectorAll('[data-step]').forEach(e => e.classList.toggle('in', st >= +e.dataset.step));
   if (hooks[s.id]) hooks[s.id](st, instant);
   if (s.id !== 's5') TL.stop();
-  if (si !== 6) { const v=document.querySelector('#s7 video'); v.pause(); }
   document.getElementById('prog').style.width = ((si + (+s.dataset.steps ? st/(+s.dataset.steps) : 1)*0.999) / slides.length * 100) + '%';
   document.getElementById('pno').textContent = (si+1) + ' / ' + slides.length;
   history.replaceState(null, '', '#' + (si+1) + (st ? '.' + st : ''));
@@ -380,6 +393,21 @@ addEventListener('touchend', e => { if (tx===null) return; const dx = e.changedT
 let idleT; addEventListener('mousemove', () => { document.body.classList.remove('idle'); clearTimeout(idleT); idleT = setTimeout(()=>document.body.classList.add('idle'), 2500); });
 setTimeout(()=>document.getElementById('hint').style.opacity=0, 4500);
 
+/* ---------- 7: flowers on the mountain (櫻梅桃李) ---------- */
+(() => { const g = document.getElementById('flowers'), ns = 'http://www.w3.org/2000/svg', kinds = ['f-sk','f-um','f-mo','f-su'];
+  const top = x => x < 600 ? 900 - (x - 40) * 650 / 560 : 250 + (x - 600) * 400 / 400; // ridge line of the front mountain
+  let r = 11; const rnd = () => (r = (r * 16807) % 2147483647) / 2147483647; const list = [];
+  for (let i = 0; i < 130; i++) { const x = 70 + rnd() * 920, y0 = Math.max(top(Math.min(x, 1000)), 262) + 18; if (y0 > 880) continue;
+    const y = y0 + rnd() * (890 - y0); list.push([x, y]); }
+  list.sort((a, b) => b[1] - a[1]);
+  list.forEach(([x, y], i) => { const u = document.createElementNS(ns, 'use'); u.setAttribute('href', '#' + kinds[i % 4]);
+    const sc = (0.45 + rnd() * 0.45) * (0.6 + (y - 250) / 640 * 0.6);
+    u.setAttribute('transform', `translate(${x.toFixed(1)} ${y.toFixed(1)}) scale(${sc.toFixed(2)}) rotate(${(rnd()*72).toFixed(0)})`);
+    const w = document.createElementNS(ns, 'g'); w.setAttribute('class', 'fl'); w.style.transitionDelay = (0.15 + (900 - y) / 640 * 2.6 + rnd() * 0.35).toFixed(2) + 's';
+    w.appendChild(u); g.appendChild(w); });
+  const s = document.createElementNS(ns, 'g'); s.setAttribute('class', 'fl'); s.style.transitionDelay = '3.2s';
+  s.innerHTML = '<use href="#f-sk" transform="translate(600 238) scale(2.1)"/>'; g.appendChild(s); })();
+
 /* ---------- 6: trail geometry ---------- */
 (() => { const p = document.getElementById('walked'); const L = p.getTotalLength(); const f = D.A / D.T;
   p.style.setProperty('--L', L); p.style.setProperty('--off', L*(1-f));
@@ -389,33 +417,32 @@ setTimeout(()=>document.getElementById('hint').style.opacity=0, 4500);
 const TL = (() => {
   const cv = document.getElementById('cv'), ctx = cv.getContext('2d');
   let K = 1;
-  const AX = 458;
-  const KM = [[-1,240],[0,350],[4,735],[5,835],[8,1060],[10,1225],[12,1385]];
-  const X = m => { for (let i = 1; i < KM.length; i++) if (m <= KM[i][0] || i === KM.length-1) { const [a,xa] = KM[i-1], [b,xb] = KM[i]; return xa + (m - a) * (xb - xa) / (b - a); } };
-  const GA = Math.PI * (3 - Math.sqrt(5)), C = 4.5, T = D.T;
+  const AX = 625;
+  const P = [110, 220, 452, 684, 916, 1148, 1380];
+  const X = m => { const i = Math.max(0, Math.min(5, Math.floor(m))); return P[i] + (m - i) * (P[i+1] - P[i]); };
+  const GA = Math.PI * (3 - Math.sqrt(5)), C = 3.4, T = D.T;
   // step plan: month the disc travels to, total members, friends spawned, approach share, conversion window
   const PLAN = [
-    {m:-1, mem:D.A},
-    {m:0,  mem:D.YE,  spawn:150, near:0.3, dur:3.2, col:'#CF5C80'},
-    {m:4,  mem:D.YE + Math.round((D.M75 - D.YE)*0.18), spawn:300, near:0.9, dur:4.2, col:'#DB7193'},
-    {m:5,  mem:D.M75, spawn:340, near:0.5, dur:3.6, col:'#E585A2', burst:true},
-    {m:8,  mem:D.M75 + Math.round((T - D.M75)*0.38), spawn:200, near:0.5, dur:3.4, col:'#EE9DB3'},
-    {m:10, mem:T - Math.max(4, Math.round(T*0.02)), spawn:240, near:0.7, dur:3.6, col:'#E3B04E', sprint:true},
-    {m:12, mem:T, spawn:0, near:0, dur:3.0, col:'#EAC266', bloom:true},
+    {m:0, mem:D.A},
+    {m:1,  mem:D.YE,  spawn:150, near:0.3, dur:3.2, col:'#CF5C80'},
+    {m:2,  mem:D.YE + Math.round((D.M75 - D.YE)*0.18), spawn:300, near:0.9, dur:4.2, col:'#DB7193'},
+    {m:3,  mem:D.M75, spawn:340, near:0.5, dur:3.6, col:'#E585A2', burst:true},
+    {m:4,  mem:D.M75 + Math.round((T - D.M75)*0.38), spawn:200, near:0.5, dur:3.4, col:'#EE9DB3'},
+    {m:5, mem:T - Math.max(4, Math.round(T*0.02)), spawn:240, near:0.7, dur:3.6, col:'#E3B04E', sprint:true},
+    {m:6, mem:T, spawn:0, near:0, dur:3.0, col:'#EAC266', bloom:true},
   ];
-  const nodeM = [null, 0, 2.15, 4.5, 6.9, 9, 12];
-  document.querySelectorAll('.tl').forEach(el => el.style.left = X(nodeM[+el.dataset.n]) + 'px');
+  document.querySelectorAll('.tl').forEach(el => el.style.left = P[+el.dataset.n] + 'px');
   let seed = 7; const rnd = () => { seed |= 0; seed = seed + 0x6D2B79F5 | 0; let t = Math.imul(seed ^ seed >>> 15, 1 | seed); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; };
   let F, mem, cur, m, anim, clock, sprintG, bloomG, sparks;
   const slot = i => { const r = C * Math.sqrt(i + 0.5), a = i * GA; return [r * Math.cos(a), r * Math.sin(a) * 0.98]; };
-  const discR = n => C * Math.sqrt(n + 0.5) + 6;
+  const discR = n => C * Math.sqrt(n + 0.5) + 5;
   function reset(){
-    seed = 7; F = []; mem = []; cur = 0; m = -1; anim = null; clock = 0; sprintG = 0; bloomG = 0; sparks = [];
+    seed = 7; F = []; mem = []; cur = 0; m = 0; anim = null; clock = 0; sprintG = 0; bloomG = 0; sparks = [];
     for (let i = 0; i < D.A; i++) mem.push({i, col: i < D.A*0.5 ? '#A9405F' : '#BE4D70', t: 1});
-    for (let i = 0; i < 150; i++) spawn(X(-1) + 170 + rnd()*900, false);
+    for (let i = 0; i < 150; i++) spawn(P[0] + 160 + rnd()*900, false);
   }
   function spawn(x, near){
-    const y = near ? AX + (rnd() < .5 ? -1 : 1) * (40 + rnd()*90) : AX + (rnd() < .5 ? -1 : 1) * (60 + rnd()*165);
+    const y = near ? AX + (rnd() < .5 ? -1 : 1) * (34 + rnd()*80) : AX + (rnd() < .5 ? -1 : 1) * (50 + rnd()*125);
     const f = {x, y, hx:x, hy:y, ph:rnd()*6.28, a:0, near, st:0, tw:0.6+rnd()*0.8};
     F.push(f); return f;
   }
@@ -447,7 +474,7 @@ const TL = (() => {
     for (const f of F) {
       if (f.st === 0) {
         if (f.near) { const s = Math.sign(f.hy - AX) || 1; f.hy += (AX + s*30 - f.hy) * dt * 0.04; f.hx += (cx + 40 - f.hx) * dt * 0.01; }
-        f.a = Math.min(f.near ? 0.85 : 0.5, f.a + dt*0.8);
+        f.a = Math.min(f.near ? 0.62 : 0.38, f.a + dt*0.8);
         const tx = f.hx + Math.sin(clock*0.5 + f.ph)*10, ty = f.hy + Math.cos(clock*0.6 + f.ph*1.3)*8;
         f.x += (tx - f.x) * Math.min(1, dt*1.4); f.y += (ty - f.y) * Math.min(1, dt*1.4);
       } else if (f.st === 1 && anim) {
@@ -474,12 +501,15 @@ const TL = (() => {
     // axis
     ctx.lineCap = 'round';
     ctx.setLineDash([3, 12]); ctx.strokeStyle = '#D9C4C7'; ctx.lineWidth = 4;
-    ctx.beginPath(); ctx.moveTo(X(-1), AX); ctx.lineTo(X(12), AX); ctx.stroke(); ctx.setLineDash([]);
-    const g = ctx.createLinearGradient(X(-1), 0, X(12), 0);
-    g.addColorStop(0, '#E6A3B6'); g.addColorStop(0.62, '#D46A88'); g.addColorStop(0.72, '#D9A441'); g.addColorStop(1, '#E2B65A');
-    ctx.strokeStyle = g; ctx.lineWidth = 6; ctx.beginPath(); ctx.moveTo(X(-1), AX); ctx.lineTo(cx, AX); ctx.stroke();
-    [0, 4, 5, 8, 10, 12].forEach((mm, i) => { const x = X(mm), done = m >= mm - 0.01;
-      ctx.beginPath(); ctx.arc(x, AX, 9, 0, 6.29); ctx.fillStyle = done ? (mm >= 10 ? '#C7973A' : '#D46A88') : '#fff'; ctx.fill();
+    ctx.beginPath(); ctx.moveTo(P[0], AX); ctx.lineTo(P[6], AX); ctx.stroke();
+    ctx.setLineDash([4, 7]); ctx.lineWidth = 2;
+    for (let k = 1; k <= cur; k++) { ctx.strokeStyle = k >= 5 ? 'rgba(199,151,58,.55)' : 'rgba(212,106,136,.45)'; ctx.beginPath(); ctx.moveTo(P[k], 440); ctx.lineTo(P[k], AX - 14); ctx.stroke(); }
+    ctx.setLineDash([]);
+    const g = ctx.createLinearGradient(P[0], 0, P[6], 0);
+    g.addColorStop(0, '#E6A3B6'); g.addColorStop(0.72, '#D46A88'); g.addColorStop(0.8, '#D9A441'); g.addColorStop(1, '#E2B65A');
+    ctx.strokeStyle = g; ctx.lineWidth = 8; ctx.beginPath(); ctx.moveTo(P[0], AX); ctx.lineTo(cx, AX); ctx.stroke();
+    [1, 2, 3, 4, 5, 6].forEach(mm => { const x = X(mm), done = m >= mm - 0.01;
+      ctx.beginPath(); ctx.arc(x, AX, 11, 0, 6.29); ctx.fillStyle = done ? (mm >= 5 ? '#C7973A' : '#D46A88') : '#fff'; ctx.fill();
       ctx.lineWidth = 3; ctx.strokeStyle = done ? '#fff' : '#D9C4C7'; ctx.stroke(); });
     // friends
     for (const f of F) {
@@ -502,27 +532,20 @@ const TL = (() => {
         ctx.bezierCurveTo(pr*1.05, pr*0.25, pr*0.55, pr*0.5, 0, 0); ctx.fillStyle = `rgba(246,178,198,${0.42*bloomG})`; ctx.fill(); }
       ctx.restore(); }
     // ring
-    ctx.lineWidth = 5; ctx.strokeStyle = 'rgba(212,106,136,.18)'; ctx.beginPath(); ctx.arc(cx, AX, discR(T) + 16, 0, 6.29); ctx.stroke();
-    ctx.strokeStyle = n >= T ? '#C7973A' : '#D46A88'; ctx.beginPath(); ctx.arc(cx, AX, discR(T) + 16, -Math.PI/2, -Math.PI/2 + 6.2832 * n / T); ctx.stroke();
+    ctx.lineWidth = 5; ctx.lineWidth = 4;
+    ctx.strokeStyle = n >= T ? '#C7973A' : '#D46A88'; ctx.beginPath(); ctx.arc(cx, AX, R + 9, -Math.PI/2, -Math.PI/2 + 6.2832 * n / T); ctx.stroke();
     // members
     for (const q of mem) { const [ox, oy] = slot(q.i); ctx.fillStyle = q.col; ctx.globalAlpha = 0.55 + 0.45*q.t;
-      ctx.beginPath(); ctx.arc(cx + ox, AX + oy, 2.7 + (1 - q.t)*2.4, 0, 6.29); ctx.fill(); }
+      ctx.beginPath(); ctx.arc(cx + ox, AX + oy, 2.1 + (1 - q.t)*2, 0, 6.29); ctx.fill(); }
     ctx.globalAlpha = 1;
     for (const s of sparks) { ctx.globalAlpha = s.life*0.8; ctx.fillStyle = '#E8B85A'; ctx.beginPath(); ctx.arc(cx + Math.cos(s.a)*s.r, AX + Math.sin(s.a)*s.r, 2.6, 0, 6.29); ctx.fill(); }
     ctx.globalAlpha = 1;
-    // pill
-    const pill = document.getElementById('pill');
-    pill.style.left = cx + 'px'; pill.style.top = (AX - discR(T) - 32) + 'px';
-    const lab = {0:['現在', Math.round(D.A/T*100) + '%'], 3:['5月底', '75%'], 6:['2027年底', '100%']}[cur];
-    const show = lab && !anim;
-    pill.style.opacity = show ? 1 : 0; if (lab) pill.innerHTML = `<small>${lab[0]}</small>${lab[1]}`;
-    pill.classList.toggle('gold', cur === 6);
   }
   let last = 0, live = false;
   function loop(ts){ const dt = Math.min(0.05, (ts - last)/1000 || 0); last = ts; step(dt); draw(); if (live) requestAnimationFrame(loop); }
   function labels(){ document.querySelectorAll('.tl').forEach(el => { const n = +el.dataset.n;
-    el.classList.toggle('in', n <= cur); el.style.opacity = n <= cur ? '' : 0; el.style.transform = n <= cur ? '' : 'translateY(20px)';
-    el.classList.toggle('past', n < cur); el.classList.toggle('cur', n === cur); }); }
+    el.style.opacity = n <= cur ? '' : 0; el.classList.toggle('cur', n === cur);
+    if (n > cur) el.style.transform = 'translateY(24px)'; else el.style.transform = ''; }); }
   function go(k, instant){
     if (instant || k < cur || k > cur + 1) { reset(); for (let j = 1; j <= k; j++) { plan(j); while (anim) step(1/30); } bloomG = k === 6 ? 1 : 0; cur = k; }
     else if (k === cur + 1) { while (anim) step(1/30); cur = k; plan(k); }
