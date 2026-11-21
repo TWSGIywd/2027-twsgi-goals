@@ -88,13 +88,13 @@ body.idle{cursor:none}
 .card.last .when{color:#A97A22}
 
 /* ---------- 4 April-May ---------- */
-#s4 .roles{position:absolute;left:110px;right:110px;top:240px;display:grid;grid-template-columns:1fr 1.25fr;gap:44px}
-.role{background:#fff;border-radius:28px;padding:36px 46px 34px;overflow:hidden;box-shadow:0 18px 50px rgba(120,60,80,.12);border:1px solid #F1E3E2;position:relative}
+#s4 .roles{position:absolute;left:110px;right:110px;top:226px;display:grid;grid-template-columns:1fr 1.25fr;gap:44px}
+.role{background:#fff;border-radius:28px;padding:28px 42px 26px;overflow:hidden;box-shadow:0 18px 50px rgba(120,60,80,.12);border:1px solid #F1E3E2;position:relative}
 .role .lab{display:inline-block;font:700 26px/1 var(--sans);color:#fff;background:var(--plum);padding:12px 22px;border-radius:40px;letter-spacing:.08em}
-.role .big{font:900 74px/1.2 var(--serif);margin-top:28px;color:var(--ink)}
+.role .big{font:900 64px/1.2 var(--serif);margin-top:18px;color:var(--ink)}
 .role.b .lab{background:var(--rose)}
 .role.b .big{color:var(--roseD)}
-.goal{margin-top:24px;padding-top:24px;border-top:2px dashed #EBD7D6;display:flex;align-items:center;gap:22px}
+.goal{margin-top:16px;padding-top:16px;border-top:2px dashed #EBD7D6;display:flex;align-items:center;gap:22px}
 .goal .t{font:700 30px/1.45 var(--sans);color:var(--ink)}
 .goal .t b{font:900 64px/1 var(--serif);color:var(--roseD);margin:0 6px;vertical-align:-6px}
 .goal .t small{display:block;font:500 21px/1.5 var(--sans);color:var(--ink2);margin-top:4px}
@@ -102,10 +102,14 @@ body.idle{cursor:none}
 .goal .ppl svg{width:58px;height:74px;transform:scale(0);transition:transform .7s cubic-bezier(.3,1.6,.5,1)}
 .in .goal .ppl svg{transform:scale(1)}
 .in .goal .ppl svg:nth-child(1){transition-delay:.9s}.in .goal .ppl svg:nth-child(2){transition-delay:1.15s}
-#s4 .grow{position:absolute;left:110px;right:110px;top:690px;display:flex;align-items:center;justify-content:center;gap:40px}
-.yr{background:#fff;border:1px solid #EFDCDB;border-radius:24px;padding:24px 40px;text-align:center;min-width:420px}
+#s4 .dist{position:absolute;left:110px;right:110px;top:578px;display:flex;align-items:center;gap:26px;background:linear-gradient(90deg,#FFF,#FBEFF2);border:2px solid #EBC9D3;border-radius:24px;padding:20px 34px}
+#s4 .dist .lab{flex:none;font:700 26px/1 var(--sans);color:#fff;background:var(--ink);padding:12px 22px;border-radius:40px;letter-spacing:.06em}
+#s4 .dist .t{font:700 32px/1.4 var(--sans);color:var(--ink)}
+#s4 .dist .t b{color:var(--roseD)}
+#s4 .grow{position:absolute;left:110px;right:110px;top:712px;display:flex;align-items:center;justify-content:center;gap:40px}
+.yr{background:#fff;border:1px solid #EFDCDB;border-radius:24px;padding:18px 40px;text-align:center;min-width:420px}
 .yr .y{font:700 24px/1 var(--sans);color:var(--mute);letter-spacing:.1em}
-.yr .w{font:700 40px/1.4 var(--serif);margin-top:12px;color:var(--ink2)}
+.yr .w{font:700 36px/1.4 var(--serif);margin-top:8px;color:var(--ink2)}
 .yr.now{border:2px solid var(--rose);background:linear-gradient(160deg,#fff,#FCE6EC)}
 .yr.now .y{color:var(--rose)}
 .yr.now .w{color:var(--ink)}
@@ -240,12 +244,12 @@ body.idle{cursor:none}
 </section>
 
 <!-- 4 4、5月 -->
-<section class="slide paper" id="s4" data-steps="3">
+<section class="slide paper" id="s4" data-steps="4">
   <div class="hd"><div class="kicker">4、5月</div><h2>以本部為單位的「新人活動」</h2></div>
   <div class="roles">
     <div class="role a" data-step="1"><span class="lab">本部級</span><div class="big">運營・籌辦</div>
-      <svg viewBox="0 0 200 150" style="position:absolute;right:30px;bottom:24px;width:230px;opacity:.9" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M20 140V70l80-50 80 50v70" stroke="#E7CBD3" stroke-width="5"/><path d="M80 140v-40h40v40" stroke="#E7CBD3" stroke-width="5"/><g fill="#F3C2CF"><circle cx="50" cy="118" r="9"/><circle cx="150" cy="118" r="9"/><circle cx="100" cy="72" r="9"/></g><path d="M0 140h200" stroke="#E7CBD3" stroke-width="5"/></svg></div>
-    <div class="role b" data-step="2"><span class="lab">支部長</span><div class="big">邀約</div>
+      <svg viewBox="0 0 200 150" style="position:absolute;right:30px;bottom:22px;width:190px;opacity:.9" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M20 140V70l80-50 80 50v70" stroke="#E7CBD3" stroke-width="5"/><path d="M80 140v-40h40v40" stroke="#E7CBD3" stroke-width="5"/><g fill="#F3C2CF"><circle cx="50" cy="118" r="9"/><circle cx="150" cy="118" r="9"/><circle cx="100" cy="72" r="9"/></g><path d="M0 140h200" stroke="#E7CBD3" stroke-width="5"/></svg></div>
+    <div class="role b" data-step="2"><span class="lab">支部長</span><div class="big">對話・邀約</div>
       <div class="goal">
         <div class="t">一個支部　挑戰邀約<b>2</b>位新朋友<small>男子部、女子部各自挑戰</small></div>
         <div class="ppl">
@@ -255,7 +259,8 @@ body.idle{cursor:none}
       </div>
     </div>
   </div>
-  <div class="grow" data-step="3">
+  <div class="dist" data-step="3"><span class="lab">區級以上幹部</span><div class="t">請務必分工投入<b>運營</b>及<b>邀約新朋友</b>，全力達成邀約新朋友目標</div></div>
+  <div class="grow" data-step="4">
     <div class="yr"><div class="y">2026</div><div class="w">培育支部長的運營力</div></div>
     <svg class="arrow" viewBox="0 0 120 30"><path d="M4 15h104M94 4l14 11-14 11"/></svg>
     <div class="yr now"><div class="y">2027</div><div class="w">培養支部長的<em>對話力</em></div></div>
