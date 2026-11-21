@@ -433,6 +433,9 @@ a.klink .go{position:absolute;right:30px;top:32px;font:700 20px/1 var(--sans);co
 .dlock input{display:block;margin:20px auto 12px;font:500 26px var(--sans);padding:12px 18px;border-radius:12px;border:2px solid #E6C9D3;width:300px;text-align:center}
 .dlock button{font:700 24px var(--sans);color:#fff;background:var(--roseD);border:0;border-radius:24px;padding:12px 30px;cursor:pointer}
 .pwmsg{margin-top:10px;font-size:20px;color:#F7A9BD}
+a.bingo-go{display:inline-block;margin-top:56px;font:900 40px/1 var(--sans);color:#fff;background:linear-gradient(135deg,var(--rose),var(--roseD));padding:30px 56px;border-radius:60px;text-decoration:none;box-shadow:0 20px 50px rgba(169,64,95,.35);opacity:0}
+.kc.on a.bingo-go{animation:rise 1s 1.4s forwards}
+a.bingo-go:hover{transform:translateY(-3px);box-shadow:0 26px 60px rgba(169,64,95,.45)}
 .slide.on .chip{animation:pop .75s cubic-bezier(.3,1.6,.5,1) forwards;animation-delay:calc(.5s + var(--i)*.13s)}
 @keyframes pop{to{opacity:1;transform:none}}
 </style>
@@ -580,6 +583,22 @@ a.klink .go{position:absolute;right:30px;top:32px;font:700 20px/1 var(--sans);co
 <section class="slide dslide" id="d15" data-steps="0"><img class="dimg" data-i="14" alt="地區級資料 第15頁"><div class="dlock"><form class="pwform"><div>🔒 地區級資料需要密碼（同照片牆）</div><input type="password" placeholder="照片牆密碼" autocomplete="off"><button>顯示</button><div class="pwmsg"></div></form></div></section>
 <section class="slide dslide" id="d16" data-steps="0"><img class="dimg" data-i="15" alt="地區級資料 第16頁"><div class="dlock"><form class="pwform"><div>🔒 地區級資料需要密碼（同照片牆）</div><input type="password" placeholder="照片牆密碼" autocomplete="off"><button>顯示</button><div class="pwmsg"></div></form></div></section>
 <section class="slide dslide" id="d17" data-steps="0"><img class="dimg" data-i="16" alt="地區級資料 第17頁"><div class="dlock"><form class="pwform"><div>🔒 地區級資料需要密碼（同照片牆）</div><input type="password" placeholder="照片牆密碼" autocomplete="off"><button>顯示</button><div class="pwmsg"></div></form></div></section>
+<!-- 地區級之後的程序串場（使用者 11-21）：女子部長總結鼓勵 → 喜訊分享 → 對話 Bingo（照片牆蓋在簡報上打開）→ 謝謝大家 -->
+<section class="slide kc" id="p1" data-steps="0">
+  <div class="petals" data-n="16"></div>
+  <div class="tt"><div class="kicker">接下來</div><h1>總結鼓勵</h1><div class="rule"></div><div class="sub">女子部長</div></div>
+</section>
+<section class="slide kc" id="p2" data-steps="0">
+  <div class="petals" data-n="16"></div>
+  <div class="tt"><div class="kicker">接下來</div><h1>喜訊分享</h1><div class="rule"></div><div class="sub">一起歡喜</div></div>
+</section>
+<section class="slide kc" id="p3" data-steps="0">
+  <div class="petals" data-n="22"></div>
+  <div class="tt" style="top:230px"><div class="kicker">2026 年初・對話 Bingo</div><h1>連線完成 ✅</h1><div class="rule"></div>
+    <div class="sub" style="letter-spacing:.06em;font-size:36px">年初完成對話 Bingo 連線任務的夥伴，今天可以領小禮物</div>
+    <a class="dash bingo-go" href="../bingo/">打開照片牆　找找看有沒有你 ↗</a></div>
+</section>
+
 <!-- K12 結尾 -->
 <section class="slide kc" id="k12" data-steps="0">
   <div class="petals" data-n="24"></div>
