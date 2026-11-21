@@ -426,6 +426,7 @@ function closeDash(){ modal.classList.remove('on'); window.focus(); }
 document.getElementById('mclose').addEventListener('click', e => { e.stopPropagation(); closeDash(); });
 document.querySelectorAll('a.dash').forEach(a => a.addEventListener('click', e => { e.preventDefault(); e.stopPropagation(); openDash(a.getAttribute('href')); }));
 addEventListener('keydown', e => {
+  if (e.target && e.target.closest && e.target.closest('input,textarea')) return; // 簡報內的輸入框（照片密碼）打字不翻頁
   if (modal.classList.contains('on')) { if (e.key === 'Escape') closeDash(); return; }
   if (['ArrowRight','ArrowDown',' ','PageDown','Enter'].includes(e.key)) { e.preventDefault(); next(); }
   else if (['ArrowLeft','ArrowUp','PageUp','Backspace'].includes(e.key)) { e.preventDefault(); prev(); }
@@ -434,7 +435,7 @@ addEventListener('keydown', e => {
   else if (e.key === 'f' || e.key === 'F') { document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen().catch(()=>{}); }
   else if (/^[1-9]$/.test(e.key)) go(+e.key - 1);
 });
-addEventListener('click', e => { if (e.target.closest('a') || e.target.closest('#modal')) return; (e.clientX < innerWidth*0.3 ? prev : next)(); });
+addEventListener('click', e => { if (e.target.closest('a') || e.target.closest('#modal') || e.target.closest('form')) return; (e.clientX < innerWidth*0.3 ? prev : next)(); });
 let tx = null; addEventListener('touchstart', e => tx = e.touches[0].clientX, {passive:true});
 addEventListener('touchend', e => { if (tx===null || modal.classList.contains('on')) return; const dx = e.changedTouches[0].clientX - tx; if (Math.abs(dx) > 40) (dx < 0 ? next : prev)(); tx = null; }, {passive:true});
 let idleT; addEventListener('mousemove', () => { document.body.classList.remove('idle'); clearTimeout(idleT); idleT = setTimeout(()=>document.body.classList.add('idle'), 2500); });
