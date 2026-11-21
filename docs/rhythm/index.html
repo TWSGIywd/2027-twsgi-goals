@@ -350,6 +350,222 @@ body.idle #mus{opacity:0}
   <div class="end" data-step="1">朝向「邁向創立100週年　勇躍前進之年」<br>我們一起走到開滿花的山頂</div>
 </section>
 
+<!-- 區級資料頁（只放女子部版，見 kuji_2026-11.html） -->
+<!-- ===== 2026-11 區級資料（接在花開滿山後面，只放女子部版）；內容對應 2026年11月份女子部會(區級以上)_V1.docx =====
+     公開網址看得到：只放文字，不放 Google 表單／試算表連結（連結在 Word 版） -->
+<style>
+.kc{background:radial-gradient(900px 600px at 80% 10%,#FFF 0,rgba(255,255,255,0) 60%),linear-gradient(135deg,#F9E3E8 0,#F3D2DC 45%,#E9C3D2 100%)}
+.kc .tt{position:absolute;left:0;right:0;top:300px;text-align:center}
+.kc .tt .kicker{font-size:30px}
+.kc .tt h1{font:900 120px/1.15 var(--serif);color:var(--plum);margin:28px 0 0;letter-spacing:.06em;opacity:0;transform:translateY(30px)}
+.kc.on .tt h1{animation:rise 1.1s .3s cubic-bezier(.2,.8,.2,1) forwards}
+.kc .tt .sub{margin-top:30px;font:700 44px/1.3 var(--serif);color:var(--roseD);letter-spacing:.3em;opacity:0}
+.kc.on .tt .sub{animation:rise 1.1s 1s forwards}
+.kc .tt .rule{width:0;height:3px;margin:34px auto 0;background:linear-gradient(90deg,var(--rose),var(--gold))}
+.kc.on .tt .rule{animation:grow 1.3s .8s cubic-bezier(.6,0,.2,1) forwards}
+
+.kb{position:absolute;left:110px;right:110px;top:236px;display:grid;gap:40px}
+.kb.c2{grid-template-columns:1.15fr 1fr}
+.kb.c3{grid-template-columns:repeat(3,1fr)}
+.kx{background:#fff;border-radius:28px;padding:34px 40px;box-shadow:0 18px 50px rgba(120,60,80,.12);border:1px solid #F1E3E2;position:relative}
+.kx.main{background:linear-gradient(160deg,#fff 0,#FFF4F6 60%,#FBE6EC 100%);border:2px solid #F0B7C6}
+.kx .lab{display:inline-block;font:700 24px/1 var(--sans);color:#fff;background:var(--plum);padding:11px 20px;border-radius:40px;letter-spacing:.06em}
+.kx.main .lab{background:var(--rose)}
+.kx .big{font:900 46px/1.3 var(--serif);color:var(--roseD);margin-top:18px}
+.kx ul{margin:20px 0 0;padding:0;list-style:none}
+.kx li{position:relative;padding-left:30px;margin-top:14px;font:500 27px/1.55 var(--sans);color:var(--ink)}
+.kx li::before{content:"";position:absolute;left:4px;top:15px;width:12px;height:12px;border-radius:50%;background:var(--rose)}
+.kx li b{color:var(--roseD)}
+.kx .when{font:900 56px/1 var(--serif);color:var(--roseD);margin-top:22px}
+.kx .nm{font:700 36px/1.35 var(--serif);color:var(--ink);margin-top:22px}
+.kx .nt{font:500 24px/1.6 var(--sans);color:var(--ink2);margin-top:20px;padding-top:18px;border-top:2px dashed #EBD7D6}
+.kx .nt b{color:var(--ink)}
+
+.flow{position:absolute;left:110px;right:110px;top:250px;display:flex;gap:46px}
+.fs{flex:1;background:#fff;border-radius:24px;padding:28px 26px 26px;border:2px solid #EFDCDB;box-shadow:0 12px 34px rgba(120,60,80,.09);position:relative}
+.fs:not(:last-child)::after{content:"";position:absolute;right:-36px;top:50%;width:22px;height:22px;border-top:4px solid var(--rose);border-right:4px solid var(--rose);transform:translateY(-50%) rotate(45deg)}
+.fs .tm{font:900 36px/1.2 var(--serif);color:var(--roseD);white-space:nowrap}
+.fs .tx{font:500 26px/1.55 var(--sans);color:var(--ink);margin-top:16px}
+.fs.hi{border-color:var(--gold);background:linear-gradient(180deg,#fff,#FBF0D6)}
+.fs.hi .tm{color:#A97A22}
+.band{position:absolute;left:110px;right:110px;display:flex;align-items:center;gap:26px;background:linear-gradient(90deg,#FFF,#FBEFF2);border:2px solid #EBC9D3;border-radius:24px;padding:22px 34px}
+.band .lab{flex:none;font:700 24px/1 var(--sans);color:#fff;background:var(--ink);padding:12px 20px;border-radius:40px}
+.band .t{font:500 27px/1.55 var(--sans);color:var(--ink)}
+.band .t b{color:var(--roseD)}
+
+.qual{position:absolute;left:110px;right:110px;top:520px;display:grid;grid-template-columns:1fr 1fr;gap:40px}
+
+.rtbl{width:100%;border-collapse:separate;border-spacing:0;margin-top:22px;font:500 26px/1.3 var(--sans);text-align:center;border-radius:18px;overflow:hidden;border:2px solid #EBD7D6}
+.rtbl th{background:#FBE6EC;color:var(--plum);font:700 21px/1.35 var(--sans);padding:14px 6px}
+.rtbl th small{display:block;font:500 17px var(--sans);color:var(--ink2)}
+.rtbl td{padding:18px 6px;border-top:2px solid #F1E3E2;background:#fff}
+.rtbl td:first-child{font-weight:700;color:var(--ink)}
+.rtbl tr.tbd td{color:var(--mute)}
+.rtbl tr.tbd td:first-child small{display:block;font:700 16px var(--sans);color:var(--rose)}
+
+/* 頒獎 */
+.aw{position:absolute;left:110px;right:110px;top:250px}
+.aw .sub{font:700 32px/1.4 var(--sans);color:var(--ink2);margin:-6px 0 30px}
+.grp{margin-bottom:38px}
+.grp .gl{font:700 30px/1 var(--sans);color:var(--plum);margin-bottom:22px;letter-spacing:.06em}
+.grp .gl span{display:inline-block;margin-left:14px;font:700 22px/1 var(--sans);color:var(--ink2)}
+.chips{display:flex;flex-wrap:wrap;gap:22px 24px}
+.chip{font:900 50px/1 var(--serif);padding:24px 38px;border-radius:70px;background:#fff;border:3px solid #F0B7C6;color:var(--roseD);box-shadow:0 12px 30px rgba(200,80,120,.16);opacity:0;transform:scale(.6)}
+.chip.sm{font-size:44px;padding:20px 32px}
+.chip.gold{border-color:#E2C27A;color:#8A6418;background:linear-gradient(180deg,#fff,#FBF0D6);box-shadow:0 14px 36px rgba(199,151,58,.25);font-size:60px;padding:30px 46px}
+.slide.on .chip{animation:pop .75s cubic-bezier(.3,1.6,.5,1) forwards;animation-delay:calc(.5s + var(--i)*.13s)}
+@keyframes pop{to{opacity:1;transform:none}}
+</style>
+
+<!-- K1 轉折封面 -->
+<section class="slide kc" id="k1" data-steps="0">
+  <div class="petals" data-n="18"></div>
+  <div class="tt">
+    <div class="kicker">2026 年 11 月</div>
+    <h1>女子部會</h1>
+    <div class="rule"></div>
+    <div class="sub">區級資料</div>
+  </div>
+</section>
+
+<!-- K2 前進節奏：地區友好總會＋會議調整 -->
+<section class="slide paper" id="k2" data-steps="2">
+  <div class="hd"><div class="kicker">前進節奏</div><h2>地區友好總會　～12/27</h2></div>
+  <div class="kb c2">
+    <div class="kx main" data-step="1"><span class="lab">四部一體</span>
+      <div class="big">1人邀約1人、1家邀約1家</div>
+      <ul>
+        <li>與支部／地區婦人部長婦女一體，邀約家中女兒與新舊朋友</li>
+        <li>會員「1+1」：新朋友名單<b>活動前轉交青年部</b>，當天鼓勵留下聯絡方式</li>
+        <li>鼓勵投入總會服務的姐妹報名<b>第43期芙蓉組</b></li>
+      </ul></div>
+    <div class="kx" data-step="2"><span class="lab">11、12月會議調整</span>
+      <ul>
+        <li>座談會、幹部教學<b>暫停</b>；追善回向暨佛法教學擇一月舉辦</li>
+        <li><b>12/20（日）13:00</b> 全國區長會暨運營指導會（桃園文化會館）</li>
+        <li>春節友好期間 1/30～2/14：2月各項會議暫停一次</li>
+      </ul></div>
+  </div>
+</section>
+
+<!-- K3 國高共同 -->
+<section class="slide paper" id="k3" data-steps="2">
+  <div class="hd"><div class="kicker">人才單位・國高共同</div><h2>第24屆國中班長・第21屆高中鳳雛長</h2></div>
+  <div class="flow" data-step="1">
+    <div class="fs hi"><div class="tm">～2027/3/31</div><div class="tx">提報<br>並確認家長同意</div></div>
+    <div class="fs"><div class="tm">4月</div><div class="tx">與同學共同<br>完成信心履歷</div></div>
+    <div class="fs"><div class="tm">5月</div><div class="tx">完成勤行認證<br><small style="color:var(--ink2)">5/31 前完成</small></div></div>
+    <div class="fs"><div class="tm">7、8月</div><div class="tx">暑期活動<br>任命</div></div>
+  </div>
+  <div class="qual" data-step="2">
+    <div class="kx"><span class="lab">國中班長</span><ul><li>15分鐘內完成自我偈勤行，挑戰每日唱題20分鐘</li><li>撰寫信心履歷・穩定參加學會活動</li></ul></div>
+    <div class="kx"><span class="lab">高中鳳雛長</span><ul><li>7分鐘內完成自我偈勤行，挑戰每日唱題20分鐘</li><li>撰寫信心履歷・穩定參加並<b>擔任組長使命</b></li></ul></div>
+  </div>
+</section>
+
+<!-- K4 大學部 雄鷹會 -->
+<section class="slide paper" id="k4" data-steps="2">
+  <div class="hd"><div class="kicker">人才單位・大學部</div><h2>2027 雄鷹會　3/7（日）</h2></div>
+  <div class="flow" data-step="1">
+    <div class="fs"><div class="tm">11月底–12月底</div><div class="tx">提報校園幹部<br>男女各1位CR<br>2位VCR</div></div>
+    <div class="fs hi"><div class="tm">12月中–2/21</div><div class="tx">邀約報名・挑戰<br>「廣布先鋒獎」</div></div>
+    <div class="fs"><div class="tm">2/21</div><div class="tx">報名截止<br>（2/22 各圈彙整）</div></div>
+    <div class="fs"><div class="tm">3/7</div><div class="tx">2027 雄鷹會</div></div>
+  </div>
+  <div class="band" style="top:560px" data-step="1"><span class="lab">提早一週</span><div class="t">本次雄鷹會時程提早一週，請<b>預留校園幹部懇談時程</b>；參加者完成勤行認證、讀書心得與信心履歷</div></div>
+  <div class="band" style="top:700px" data-step="2"><span class="lab">區企劃長</span><div class="t">請更新【2026年大學部_年度擴大運動】【2026年全國大學會狀況表】；<b>學期結束前</b>舉辦大學會午晚聚</div></div>
+</section>
+
+<!-- K5 芙蓉組 -->
+<section class="slide paper" id="k5" data-steps="3">
+  <div class="hd"><div class="kicker">人才單位・芙蓉組</div><h2>招生・招募開跑</h2></div>
+  <div class="kb c3">
+    <div class="kx main" data-step="1"><span class="lab">招生</span><div class="nm">第43期芙蓉組<br>＆小芙蓉</div><div class="when">～2/28</div>
+      <div class="nt">各區 <b>4位以上</b>芙蓉組<br>大一（含）以上女子／女子高中部學生</div></div>
+    <div class="kx" data-step="2"><span class="lab">招募</span><div class="nm">2026年<br>芙蓉組守護會</div><div class="when">～12/31</div>
+      <div class="nt">各圈人數見區級資料<br>線上懇談：北部 1/5、1/10<br>南部 1/13、1/17</div></div>
+    <div class="kx" data-step="3"><span class="lab">招募</span><div class="nm">第十一屆<br>北部勤務小組</div><div class="when">～12/31</div>
+      <div class="nt">各圈人數見區級資料<br>線上懇談：1/6、1/9</div></div>
+  </div>
+</section>
+
+<!-- K6 閱讀專區＋人事時程 -->
+<section class="slide paper" id="k6" data-steps="0">
+  <div class="hd"><div class="kicker">傳達事項</div><h2>閱讀專區・人事任命時程</h2></div>
+  <div class="kb" style="grid-template-columns:.8fr 1.6fr">
+    <div class="kx main"><span class="lab">華陽飛翔 Viva 閱讀專區</span><div class="nm" style="margin-top:34px">《御書文白並列本Ⅴ》</div><div class="big">〈致上野函〉</div></div>
+    <div class="kx"><span class="lab">人事任命提報時程</span>
+      <table class="rtbl">
+        <tr><th>人事月份</th><th>人事提報<small>每月5號</small></th><th>回覆<small>2週六</small></th><th>新統監登錄<small>4週一</small></th><th>懇談完畢<small>1週六</small></th><th>新統監關閉<small>2週六</small></th><th>任命<small>4週日</small></th></tr>
+        <tr><td>2026/12月</td><td>11/5</td><td>11/21</td><td>11/23</td><td>12/5</td><td>12/12</td><td>12/20</td></tr>
+        <tr class="tbd"><td>2027/1月<small>待確認</small></td><td>12/5</td><td>12/12</td><td>12/28</td><td>1/2</td><td>1/9</td><td>1/24</td></tr>
+      </table></div>
+  </div>
+</section>
+
+<!-- K7 頒獎① 超級資料王・超級週記王 -->
+<section class="slide paper" id="k7" data-steps="0">
+  <div class="petals" data-n="22"></div>
+  <div class="hd"><div class="kicker">華陽好消息　2026年6～11月</div><h2>超級資料王・超級週記王</h2></div>
+  <div class="aw">
+    <div class="grp"><div class="gl">👑 超級資料王</div><div class="chips">
+      <span class="chip gold" style="--i:0">竹縣區</span><span class="chip gold" style="--i:1">內湖區</span><span class="chip gold" style="--i:2">嘉義二區</span><span class="chip gold" style="--i:3">台中南區</span></div></div>
+    <div class="grp"><div class="gl">👑 超級週記王</div><div class="chips">
+      <span class="chip gold" style="--i:5">北二圈</span></div></div>
+  </div>
+</section>
+
+<!-- K8 頒獎② 年度目標三項全達成 -->
+<section class="slide paper" id="k8" data-steps="0">
+  <div class="petals" data-n="22"></div>
+  <div class="hd"><div class="kicker">華陽好消息　狂賀</div><h2>2026 年度目標　三項全達成</h2></div>
+  <div class="aw">
+    <div class="sub">新增實動・擴大入會・創新訂閱　皆達成 100%</div>
+    <div class="chips">
+      <span class="chip" style="--i:0">城林區</span><span class="chip" style="--i:1">汐止區</span><span class="chip" style="--i:2">泰林區</span>
+      <span class="chip" style="--i:3">雲林二區</span><span class="chip" style="--i:4">嘉義二區</span><span class="chip" style="--i:5">高雄東區</span>
+      <span class="chip" style="--i:6">寶發區</span><span class="chip" style="--i:7">鳳山區</span><span class="chip" style="--i:8">屏東一區</span></div>
+  </div>
+</section>
+
+<!-- K9 頒獎③ 新入會／實動會員達成100% -->
+<section class="slide paper" id="k9" data-steps="0">
+  <div class="petals" data-n="16"></div>
+  <div class="hd"><div class="kicker">華陽好消息</div><h2>達成 100%</h2></div>
+  <div class="aw">
+    <div class="grp"><div class="gl">新入會達成 100%</div><div class="chips">
+      <span class="chip sm" style="--i:0">板橋區</span><span class="chip sm" style="--i:1">北南一區</span><span class="chip sm" style="--i:2">桃園西區</span><span class="chip sm" style="--i:3">竹縣區</span>
+      <span class="chip sm" style="--i:4">雲林一區</span><span class="chip sm" style="--i:5">嘉義一區</span><span class="chip sm" style="--i:6">台南北區</span><span class="chip sm" style="--i:7">台南中區</span></div></div>
+    <div class="grp"><div class="gl">實動會員達成 100%</div><div class="chips">
+      <span class="chip sm" style="--i:9">蘭陽南區</span><span class="chip sm" style="--i:10">內湖區</span></div></div>
+  </div>
+</section>
+
+<!-- K10 頒獎④ 資料王／週記王 -->
+<section class="slide paper" id="k10" data-steps="0">
+  <div class="petals" data-n="16"></div>
+  <div class="hd"><div class="kicker">華陽好消息</div><h2>資料王・週記王</h2></div>
+  <div class="aw">
+    <div class="grp"><div class="gl">👏🏻 資料王</div><div class="chips">
+      <span class="chip sm" style="--i:0">蘭陽南區</span><span class="chip sm" style="--i:1">桃園東區</span><span class="chip sm" style="--i:2">新竹區</span><span class="chip sm" style="--i:3">台東區</span>
+      <span class="chip sm" style="--i:4">台中中區</span><span class="chip sm" style="--i:5">高雄中區</span><span class="chip sm" style="--i:6">高港區</span></div></div>
+    <div class="grp"><div class="gl">🎀 週記王</div><div class="chips">
+      <span class="chip sm" style="--i:8">北一圈</span><span class="chip sm" style="--i:9">板城圈</span><span class="chip sm" style="--i:10">高雄一圈</span></div></div>
+  </div>
+</section>
+
+<!-- K11 資料回報 -->
+<section class="slide paper" id="k11" data-steps="1">
+  <div class="hd"><div class="kicker">各項資料回報</div><h2>運作減量，資料也減量！</h2></div>
+  <div class="kb c3">
+    <div class="kx main"><span class="lab">每月</span><div class="nm">資料王追蹤表</div><div class="nt">點自己的區名，開啟本區 checklist，完成就打勾<br>敘獎於<b>每月第三週三</b>結算</div></div>
+    <div class="kx"><span class="lab">每月</span><div class="nm">座談會回饋<br>與感人事蹟</div><div class="nt">11、12月座談會暫停<br><b>本月無</b></div></div>
+    <div class="kx"><span class="lab">每月</span><div class="nm">女子部<br>週記時光</div><div class="nt">每月至少一篇<br>歡迎分享總會的感動與照片</div></div>
+  </div>
+  <div class="band" style="top:640px" data-step="1"><span class="lab">區企劃長</span><div class="t">每月更新：<b>新統監年度擴大運動達成進度</b>・全國大學會狀況表・大學部年度擴大運動・研究生部活動統計表</div></div>
+</section>
+
+
 <div id="prog"></div><div id="pno"></div>
 </div>
 <div id="modal"><button id="mclose" aria-label="關閉">✕</button><iframe title="儀表板"></iframe></div>
