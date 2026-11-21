@@ -138,7 +138,10 @@ let qi=0;
 const HOLD=2.6, FADE=1.6;
 function drop(){ if(!queue.length) return; const q=queue[qi%queue.length], t=landingSpot(qi); qi++;
   falling.push({d:q.d,n:q.n,x:t.x+(Math.random()-.5)*60,y:H*.27,tx:t.x,ty:t.y,sw:Math.random()*6.3,rot:0,pal:palOf(q,qi),lc:lcOf(q),r:6}); }
-if(!reduce){ drop(); setInterval(drop,2400); }
+if(!reduce){ drop(); setInterval(()=>{ if(!document.hidden && falling.length<4) drop() },2400);
+  // 2026-11-21 使用者：分頁放著很久再切回來，花和區名擠成一排 → 背景時 requestAnimationFrame 停了但計時器還在丟花。
+  // 改成看不到時不丟花；切回來時清掉畫面上的花、重新開始飄
+  document.addEventListener("visibilitychange",()=>{ if(document.hidden) return; falling.length=0; landed.length=0; last=performance.now(); drop(); }); }
 else queue.forEach((q,i)=>{const t=landingSpot(i);landed.push({d:q.d,n:q.n,x:t.x,y:t.y,pal:palOf(q,i),lc:lcOf(q),r:6,bloom:1,lab:0,rot:0})});
 let spot=-1, spotT=0, last=performance.now(), T=0;
 function tick(now){const dt=Math.min(.05,(now-last)/1000); last=now; T+=dt; ctx.clearRect(0,0,W,H);
