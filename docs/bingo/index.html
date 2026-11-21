@@ -79,9 +79,8 @@ function wall(){
   P.forEach((p, i) => { const d = document.createElement('div'); d.className = 'ph'; d.dataset.i = i;
     d.innerHTML = `<img src="${urls[i]}" width="${p[0]}" height="${p[1]}" alt="第 ${i+1} 張"><div class="no">${i+1}</div><div class="stamp">已領 ✓</div>`;
     if (p[4]) { if (!pair) { pair = document.createElement('div'); pair.className = 'pairrow'; w.appendChild(pair); } d.style.flex = (p[0] / p[1]) + ' 1 0'; pair.appendChild(d); }
-    else if (p[0] > p[1]) { if (!land) { land = document.createElement('div'); land.className = 'landrow'; w.appendChild(land); } land.appendChild(d); }
+    else if (p[0] > p[1]) { d.classList.add('ld'); if (!land) { land = document.createElement('div'); land.className = 'landrow'; w.appendChild(land); } land.appendChild(d); }
     else w.appendChild(d); });
-  if (land) land.style.gridTemplateColumns = `repeat(${Math.min(3, land.children.length)},minmax(0,1fr))`;
   return w;
 }
 const A = wall(), B = wall(); track.append(A, B);
@@ -93,9 +92,20 @@ function layout(){
   let cols = want;
   for (let d = 0; d <= 2; d++) { if (nPort % (want + d) === 0) { cols = want + d; break; } if (want - d >= 3 && nPort % (want - d) === 0) { cols = want - d; break; } }
   document.querySelectorAll('.wall').forEach(w => w.style.setProperty('--cols', cols));
-  // 直式最後一排沒排滿時，置中（2026-11-21 補進相簿78 後直式 71 張，最後一排只有 1 張）
-  document.querySelectorAll('.wall').forEach(w => { const ps = [...w.children].filter(e => e.classList.contains('ph')); ps.forEach(e => e.style.gridColumnStart = '');
-    const r = ps.length % cols; if (r) ps[ps.length - r].style.gridColumnStart = Math.floor((cols - r) / 2) + 1; });
+  // 直式最後一排沒排滿時：把第一張橫式往上補在旁邊（佔兩格，高度和直式差不多），整組置中；剩下的橫式另起一排
+  // （2026-11-21 使用者：直式 71 張、最後一排只有 1 張單獨置中太怪 → 一張橫式往上排）
+  document.querySelectorAll('.wall').forEach(w => {
+    const land = w.querySelector('.landrow'); if (!land) return;
+    const lds = [...w.querySelectorAll('.ph.ld')].sort((a, b) => a.dataset.i - b.dataset.i);
+    lds.forEach(e => { e.style.gridColumn = ''; land.appendChild(e); });
+    const ps = [...w.children].filter(e => e.classList.contains('ph')); ps.forEach(e => e.style.gridColumnStart = '');
+    const r = ps.length % cols; let up = 0;
+    if (r && cols - r >= 2 && lds.length) { up = 2; lds[0].style.gridColumn = 'span 2'; w.insertBefore(lds[0], land); }
+    if (r) ps[ps.length - r].style.gridColumnStart = Math.floor((cols - r - up) / 2) + 1;
+    const n = land.children.length; land.style.display = n ? '' : 'none';
+    land.style.gridTemplateColumns = `repeat(${Math.min(3, n) || 1},minmax(0,1fr))`;
+    land.style.width = n === 2 && cols >= 5 ? (400 / cols) + '%' : n === 1 ? (200 / cols) + '%' : ''; land.style.margin = '0 auto';
+  });
   top0 = document.querySelector('header').offsetHeight - 10;
   A.style.paddingTop = top0 + 'px'; B.style.paddingTop = '0px';
   H = A.offsetHeight - top0; // 一輪的長度＝照片本身的高度（不含上方留給標題的空間），接到 B 時位置剛好對齊
