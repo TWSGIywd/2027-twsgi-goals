@@ -413,6 +413,9 @@ body.idle #mus{opacity:0}
 .chip{font:900 50px/1 var(--serif);padding:24px 38px;border-radius:70px;background:#fff;border:3px solid #F0B7C6;color:var(--roseD);box-shadow:0 12px 30px rgba(200,80,120,.16);opacity:0;transform:scale(.6)}
 .chip.sm{font-size:44px;padding:20px 32px}
 .chip.gold{border-color:#E2C27A;color:#8A6418;background:linear-gradient(180deg,#fff,#FBF0D6);box-shadow:0 14px 36px rgba(199,151,58,.25);font-size:60px;padding:30px 46px}
+a.klink{display:block;text-decoration:none;color:inherit;cursor:pointer;transition:transform .25s,box-shadow .25s}
+a.klink:hover{transform:translateY(-4px);box-shadow:0 24px 60px rgba(200,80,120,.25)}
+a.klink .go{position:absolute;right:30px;top:32px;font:700 20px/1 var(--sans);color:#fff;background:var(--roseD);padding:10px 16px;border-radius:22px}
 .slide.on .chip{animation:pop .75s cubic-bezier(.3,1.6,.5,1) forwards;animation-delay:calc(.5s + var(--i)*.13s)}
 @keyframes pop{to{opacity:1;transform:none}}
 </style>
@@ -516,9 +519,9 @@ body.idle #mus{opacity:0}
 <section class="slide paper" id="k11" data-steps="1">
   <div class="hd"><div class="kicker">各項資料回報</div><h2>運作減量，資料也減量！</h2></div>
   <div class="kb c3">
-    <div class="kx main"><span class="lab">每月</span><div class="nm">資料王追蹤表</div><div class="nt">點自己的區名，開啟本區 checklist，完成就打勾<br>敘獎於<b>每月第三週三</b>結算</div></div>
-    <div class="kx"><span class="lab">每月</span><div class="nm">座談會回饋<br>與感人事蹟</div><div class="nt">11、12月座談會暫停<br><b>本月無</b></div></div>
-    <div class="kx"><span class="lab">每月</span><div class="nm">女子部<br>週記時光</div><div class="nt">每月至少一篇<br>歡迎分享總會的感動與照片</div></div>
+    <a class="kx main klink" href="https://docs.google.com/spreadsheets/d/1xQl0Q2T0-9635JRkljjzAlJappXMzcuIEbwMuIWQyU0/edit" target="_blank" rel="noopener"><span class="lab">區企劃長專屬</span><div class="nm">資料王追蹤表</div><div class="nt">點自己的<b>區名</b>，打開本區專屬 checklist，完成就打勾<br>敘獎於<b>每月第三週三</b>結算</div><span class="go">打開 ↗</span></a>
+    <a class="kx klink" href="https://forms.gle/N4ka2kJxHry3LwWCA" target="_blank" rel="noopener"><span class="lab">每月</span><div class="nm">座談會回饋<br>與感人事蹟</div><div class="nt">11、12月座談會暫停<br><b>本月無</b></div><span class="go">打開表單 ↗</span></a>
+    <a class="kx klink" href="https://forms.gle/wtDi77HqdSUxndd97" target="_blank" rel="noopener"><span class="lab">每月</span><div class="nm">女子部<br>週記時光</div><div class="nt">每月至少一篇<br>歡迎分享總會的感動與照片</div><span class="go">打開表單 ↗</span></a>
   </div>
   <div class="band" style="top:640px" data-step="1"><span class="lab">區企劃長</span><div class="t">每月更新：<b>新統監年度擴大運動達成進度</b>・全國大學會狀況表・大學部年度擴大運動・研究生部活動統計表</div></div>
 </section>
