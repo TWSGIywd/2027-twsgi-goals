@@ -144,6 +144,7 @@ body.idle #mus{opacity:0}
 #s6 .num b{font:900 40px var(--serif);color:var(--roseD)}
 #s6 .foot{text-decoration:none;color:var(--ink);cursor:pointer;z-index:2;left:auto;right:90px;bottom:70px;width:640px;text-align:left;background:rgba(255,255,255,.88);border-radius:24px;padding:24px 32px;box-shadow:0 14px 40px rgba(90,53,80,.14);font-size:28px}
 #s6 .foot small b{display:inline-block;margin-left:14px;color:#fff;background:var(--roseD);font:700 19px/1 var(--sans);padding:8px 14px;border-radius:20px}
+#s6 .foot small i{display:block;font-style:normal;margin-top:10px} #s6 .foot small i b:first-child{margin-left:0}
 #s6 .foot:hover{box-shadow:0 18px 50px rgba(90,53,80,.25)}
 .walked{stroke-dasharray:var(--L);stroke-dashoffset:var(--L)}
 #s6.on .walked{animation:walk 3.2s .9s cubic-bezier(.45,0,.2,1) forwards}
@@ -310,7 +311,7 @@ body.idle #mus{opacity:0}
   </svg>
   <div class="hd"><div class="kicker">女子部兩年三倍</div><h2>這一條山路，<br>我們走到了 30%</h2>
     <div class="num"><b>286</b> ／ 948 位　<span style="font-size:20px">（11/21）</span></div></div>
-  <a class="foot dash" data-step="1" href="../ywd.html" >2027 年度目標＝各區兩年三倍還差的數字<small>各區的數字看儀表板（每天更新）<b>打開儀表板 ↗</b></small></a>
+  <a class="foot dash" data-step="1" href="../ywd.html" >2027 年度目標＝各區兩年三倍還差的數字<small>各區的數字看儀表板（每天更新）<i><b>女子部儀表板 ↗</b><b data-href="https://twsgiywd.github.io/2026-twsgi-goals/%E5%85%A9%E5%B9%B4%E4%B8%89%E5%80%8D_%E5%80%8B%E4%BA%BA%E8%B3%87%E6%96%99%E5%8D%A1.html">四部儀表板 ↗</b></i></small></a>
 </section>
 
 <!-- 7 一起攀登 -->
@@ -682,6 +683,7 @@ function openDash(url){ const f = modal.querySelector('iframe'); if (f.getAttrib
 modal.querySelector('iframe').addEventListener('load', e => { try { e.target.contentWindow.addEventListener('keydown', k => { if (k.key === 'Escape') closeDash(); }); } catch (_) {} });
 function closeDash(){ modal.classList.remove('on'); window.focus(); }
 document.getElementById('mclose').addEventListener('click', e => { e.stopPropagation(); closeDash(); });
+document.querySelectorAll('b[data-href]').forEach(b => b.addEventListener('click', e => { e.preventDefault(); e.stopPropagation(); openDash(b.dataset.href); }));
 document.querySelectorAll('a.dash').forEach(a => a.addEventListener('click', e => { e.preventDefault(); e.stopPropagation(); openDash(a.getAttribute('href')); }));
 addEventListener('keydown', e => {
   if (e.target && e.target.closest && e.target.closest('input,textarea')) return; // 簡報內的輸入框（照片密碼）打字不翻頁

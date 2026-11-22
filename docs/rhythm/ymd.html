@@ -144,6 +144,7 @@ body.idle #mus{opacity:0}
 #s6 .num b{font:900 40px var(--serif);color:var(--roseD)}
 #s6 .foot{text-decoration:none;color:var(--ink);cursor:pointer;z-index:2;left:auto;right:90px;bottom:70px;width:640px;text-align:left;background:rgba(255,255,255,.88);border-radius:24px;padding:24px 32px;box-shadow:0 14px 40px rgba(54,70,89,.14);font-size:28px}
 #s6 .foot small b{display:inline-block;margin-left:14px;color:#FFFFFF;background:var(--roseD);font:700 19px/1 var(--sans);padding:8px 14px;border-radius:20px}
+#s6 .foot small i{display:block;font-style:normal;margin-top:10px} #s6 .foot small i b:first-child{margin-left:0}
 #s6 .foot:hover{box-shadow:0 18px 50px rgba(54,70,89,.25)}
 .walked{stroke-dasharray:var(--L);stroke-dashoffset:var(--L)}
 #s6.on .walked{animation:walk 3.2s .9s cubic-bezier(.45,0,.2,1) forwards}
@@ -424,6 +425,7 @@ function openDash(url){ const f = modal.querySelector('iframe'); if (f.getAttrib
 modal.querySelector('iframe').addEventListener('load', e => { try { e.target.contentWindow.addEventListener('keydown', k => { if (k.key === 'Escape') closeDash(); }); } catch (_) {} });
 function closeDash(){ modal.classList.remove('on'); window.focus(); }
 document.getElementById('mclose').addEventListener('click', e => { e.stopPropagation(); closeDash(); });
+document.querySelectorAll('b[data-href]').forEach(b => b.addEventListener('click', e => { e.preventDefault(); e.stopPropagation(); openDash(b.dataset.href); }));
 document.querySelectorAll('a.dash').forEach(a => a.addEventListener('click', e => { e.preventDefault(); e.stopPropagation(); openDash(a.getAttribute('href')); }));
 addEventListener('keydown', e => {
   if (e.target && e.target.closest && e.target.closest('input,textarea')) return; // 簡報內的輸入框（照片密碼）打字不翻頁
