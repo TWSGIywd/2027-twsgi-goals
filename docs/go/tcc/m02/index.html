@@ -12,8 +12,14 @@
 </head><body><p>正在前往 台灣創價學會 FB 貼文（示範）…</p>
 <script>
 (function(){
-  var log="https://script.google.com/macros/s/AKfycbxyA3P09rfaNdUxUeOCwYDpK6Dmgd_sgQswZOIucChcO1_HHaJkA_XyO7L_j2OHMnWtWw/exec?log=1&r=tcc&m=m02", url="https://www.facebook.com/TaiwanSokaAssociation/posts/pfbid0sw2cZdpXp9YBBsFZbxDC7zqK9S3n3nTis41Pg7mi7z3u4ehYpwxCr5pnxb2ko5F3l";
-  try{ fetch(log,{mode:"no-cors",keepalive:true,credentials:"omit",cache:"no-store"}).catch(function(){}); }catch(e){ try{ (new Image).src=log; }catch(x){} }
-  location.replace(url);
+  var exec="https://script.google.com/macros/s/AKfycbxyA3P09rfaNdUxUeOCwYDpK6Dmgd_sgQswZOIucChcO1_HHaJkA_XyO7L_j2OHMnWtWw/exec", r="tcc", m="m02", url="https://www.facebook.com/TaiwanSokaAssociation/posts/pfbid0sw2cZdpXp9YBBsFZbxDC7zqK9S3n3nTis41Pg7mi7z3u4ehYpwxCr5pnxb2ko5F3l", gone=false;
+  function go(){ if(gone) return; gone=true; location.replace(url); }
+  var sent=false;
+  try{ if(navigator.sendBeacon){ var fd=new URLSearchParams(); fd.append("r",r); fd.append("m",m); fd.append("src","go"); sent=navigator.sendBeacon(exec, fd); } }catch(e){}
+  if(!sent){
+    var log=exec+"?log=1&r="+encodeURIComponent(r)+"&m="+encodeURIComponent(m)+"&src=go";
+    try{ fetch(log,{mode:"no-cors",keepalive:true,credentials:"omit",cache:"no-store"}).then(go,go); }catch(e){ try{ (new Image).src=log; }catch(x){} }
+    setTimeout(go,900);
+  } else { setTimeout(go,250); }
 })();
 </script></body></html>
